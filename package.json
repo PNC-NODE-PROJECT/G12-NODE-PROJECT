@@ -19,6 +19,13 @@
   },
   "homepage": "https://github.com/PNC-NODE-PROJECT/G12-NODE-PROJECT#readme",
   "dependencies": {
-    "nodemon": "^2.0.15"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "env": "^0.0.2",
+    "express": "^4.18.0",
+    "module": "^1.2.5",
+    "mongoose": "^6.3.1",
+    "nodemon": "^2.0.15",
+    "uuid": "^8.3.2"
   }
 }
