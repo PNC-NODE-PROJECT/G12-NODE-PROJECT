@@ -13,13 +13,13 @@ app.listen(PORT, () => {
 
 // call file from folder routes
 let usersRouter = require('./routes/user_routes'); //call usersRouter
-// let quizzRouter = require('./routes/quiz_routes.js'); //call quizRouter
-// let questionRouter = require('./routes/user_routes.js'); //call questionRouter
-// let scoreRouter = require('./routes/store_score_routes.js'); //call scoreRouter
+let quizzRouter = require('./routes/quiz_routes.js'); //call quizRouter
+let questionRouter = require('./routes/question_routes.js'); //call questionRouter
+let scoreRouter = require('./routes/store_score_routes.js'); //call scoreRouter
 
 
 //use other file what we call from router folder
 app.use('/getUser', usersRouter) //use userRouter
-// app.use('/', quizzRouter) //use quizRouter
-// app.use('/', questionRouter) //use questionRouter
-// app.use('/', scoreRouter) //use scoreRouter
+app.use('/getQuizzes', quizzRouter) //use quizRouter
+app.use('/getQuestion', questionRouter) //use questionRouter
+app.use('/getScores', scoreRouter) //use scoreRouter

@@ -11,6 +11,7 @@ const userModel = Data.user;
 // router.use(express.static("public"));
 
 // TODO: Define dynamic routes
+// Get user data from DB
 router.get('/', (req, res)=>{
   userModel.find()
   .then((result)=> {
@@ -21,5 +22,6 @@ router.get('/', (req, res)=>{
 
   });
 })
+// 
 
 module.exports = router
