@@ -7,11 +7,11 @@ const scoresSchema = new mongoose.Schema({
     scores: {
         type: Number,
     },
-    quiz_Id: {
+    quizId: {
         type: mongoose.Types.ObjectId,
         ref: "quizzes"
     },
-    user_Id: {
+    userId: {
         type: mongoose.Types.ObjectId,
         ref: "users"
     }

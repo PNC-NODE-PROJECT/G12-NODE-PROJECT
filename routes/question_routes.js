@@ -13,7 +13,7 @@ const questionModel = require("../models/question_models");
 // Get question data from DB
 router.get('/', (req, res)=>{
     questionModel.find()
-.populate("quiz_id")
+.populate("quizzId")
   .then((result)=> {
       res.send(result);
   })

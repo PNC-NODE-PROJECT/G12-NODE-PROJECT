@@ -29,7 +29,7 @@ const questionsSchema = new mongoose.Schema({
     correctAnswer: {
         type: String,
     },
-    quiz_id: {
+    quizzId: {
         type: mongoose.Types.ObjectId,
         ref: "quizzes"
     },

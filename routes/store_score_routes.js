@@ -12,8 +12,8 @@ const scoreModel = require("../models/score_models");
 // Get score data from DB
 router.get('/', (req, res)=>{
     scoreModel.find()
-    .populate("quiz_Id")
-    .populate("user_Id")
+    .populate("quizId")
+    .populate("userId")
   .then((result)=> {
       res.send(result);
   })
