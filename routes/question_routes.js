@@ -34,17 +34,17 @@ router.post('/create', (req, res)=>{
     });
   })
 
-// // delete
-// router.delete("/delete/:id", (req, res)=>{
-//     questionModel.deleteOne({_id: req.params.id})
-//     .then((result)=>{
-//         res.send(result);
-//     })
-//     .catch((error)=>{
-//         console.log(error);
-//         res.send(error);
-//     });
-//   })
+// delete
+router.delete("/delete/:id", (req, res)=>{
+    questionModel.deleteOne({_id: req.params.id})
+    .then((result)=>{
+        res.send(result);
+    })
+    .catch((error)=>{
+        console.log(error);
+        res.send(error);
+    });
+  })
 
 //   // update
 // router.put("/update/:id", (req, res) => {
