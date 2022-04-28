@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 require("dotenv").config();
-let dbURI = process.env.DB_LINK; 
+let dbURI = process.env.DATABASE_URL; 
 
 // TODO: Connect to MangoDB
 mongoose.connect(dbURI,{useUnifiedTopology:true});
@@ -16,4 +16,3 @@ db.once("open", function () {
 });
 
 module.exports = mongoose;
-

@@ -1,10 +1,9 @@
 const express = require('express')
-const fs = require('fs')
 const router = express.Router()
 
 // import Task model
-const Data = require("../models/user_models");
-const scoreModel = Data.score;
+const scoreModel = require("../models/score_models");
+// const scoreModel = Data.score;
 
 // Define static route
 // router.use(express.static("public"));
@@ -23,5 +22,17 @@ router.get('/', (req, res)=>{
 
   });
 })
+
+// // add to Score
+// router.post('/addScore', (req, res)=>{
+//     let element =req.body;
+//     scoreModel.create(element)
+//     .then((result)=>{
+//         res.send(result);
+//     })
+//     .catch((error)=>{
+//         console.log(error);
+//     });
+//   })
 
 module.exports = router

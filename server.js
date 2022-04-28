@@ -1,11 +1,13 @@
 // To Do
 // create server
+require('dotenv').config()
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extended : true }));
 app.use(express.json())
-const { v4: uuidv4 } = require('uuid');
+
 
 app.listen(PORT, () => {
     console.log('Server is running.....   ' +"http://localhost:"+ PORT)
@@ -13,13 +15,15 @@ app.listen(PORT, () => {
 
 // call file from folder routes
 let usersRouter = require('./routes/user_routes'); //call usersRouter
-let quizzRouter = require('./routes/quiz_routes.js'); //call quizRouter
-let questionRouter = require('./routes/question_routes.js'); //call questionRouter
-let scoreRouter = require('./routes/store_score_routes.js'); //call scoreRouter
+let quizzRouter = require('./routes/quiz_routes'); //call quizRouter
+let questionRouter = require('./routes/question_routes'); //call questionRouter
+let scoreRouter = require('./routes/store_score_routes'); //call scoreRouter
 
 
 //use other file what we call from router folder
-app.use('/getUser', usersRouter) //use userRouter
-app.use('/getQuizzes', quizzRouter) //use quizRouter
-app.use('/getQuestion', questionRouter) //use questionRouter
-app.use('/getScores', scoreRouter) //use scoreRouter
+app.use('/users', usersRouter) //use userRouter
+app.use('/quizzes', quizzRouter) //use quizRouter
+app.use('/questions', questionRouter) //use questionRouter
+app.use('/scores', scoreRouter) //use scoreRouter
+
+
