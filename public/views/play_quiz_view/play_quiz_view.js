@@ -100,7 +100,6 @@ const playQuiz = (e) => {
     }
 } 
 
-
 const showGoodBadAnswers = () => {
     show(domShowGoodBadAnswers)
     hide(domScore)
