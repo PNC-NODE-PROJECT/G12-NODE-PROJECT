@@ -116,12 +116,6 @@
      background: linear-gradient(120deg, #3292F4, #db94f3);
  }
  
- .container {
-     background: #ebf5ff;
-     box-sizing: border-box;
-     padding-bottom: 1px;
- }
- 
  .b-radius {
      border-radius: 30px;
  }
@@ -331,7 +325,10 @@
  .bg-incorrect {
      background: rgb(222, 16, 54);
  }
- 
+ .bg-sm-none{
+     background: #fff;
+     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+ }
  @media (max-width: 768px) {
      .create-question {
          width: 100%;
