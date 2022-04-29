@@ -95,35 +95,35 @@ function displayQuestion() {
     })
 }
 
-// Create answers
-// function createQuestion() {
-//     // Check correct answers
-//     let correctAn = '';
-//     if (correctA.checked) {
-//         correctAn = "A";
-//     } else if (correctB.checked) {
-//         correctAn = "B";
-//     } else if (correctC.checked) {
-//         correctAn = "C";
-//     } else if (correctD.checked) {
-//         correctAn = "D";
-//     }
-//     let body = {
-//         question_title: title.value,
-//         answers: {
-//             choiceA: anA.value,
-//             choiceB: anB.value,
-//             choiceC: anC.value,
-//             choiceD: anD.value,
+// Create answers & question
+function createQuestion() {
+    // Check correct answers
+    let correctAn = '';
+    if (correctA.checked) {
+        correctAn = "A";
+    } else if (correctB.checked) {
+        correctAn = "B";
+    } else if (correctC.checked) {
+        correctAn = "C";
+    } else if (correctD.checked) {
+        correctAn = "D";
+    }
+    let body = {
+        question_title: title.value,
+        answers: {
+            choiceA: anA.value,
+            choiceB: anB.value,
+            choiceC: anC.value,
+            choiceD: anD.value,
 
-//         },
-//         correctAnswer: correctAn
-//     }
-//     axios.post(URL + "/questions/create", body).then((respone) => {
-//         show(screenToDisplay)
-//         displayQuestion();
-//     })
-// }
+        },
+        correctAnswer: correctAn
+    }
+    axios.post(URL + "/questions/create", body).then((respone) => {
+        show(screenToDisplay)
+        displayQuestion();
+    })
+}
 
 const btnCreate = document.querySelector('#create');
 const screenToDisplay = document.querySelector(".displayQuestion");
