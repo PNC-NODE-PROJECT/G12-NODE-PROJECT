@@ -6,34 +6,11 @@ const answerD = document.querySelector('#answer-D');
 const title_question = document.querySelector('.title-question');
 const core = document.querySelector('.show-score');
 const containQuestion = document.querySelector(".contain-question");
+const noData = document.querySelector('#no-data');
+const goodBadAnswer = document.querySelector('#good-bad-answer');
 
-// Import function
-
-// import {hide, show} from '../js/functions.js';
-
-let quiz_datas = []
-    // {
-    //     question: "What is Preah Vihear Teample",
-    //     answers: {
-    //         choiceA: "Teample",
-    //         choiceB: "District",
-    //         choiceC: "Commune",
-    //         choiceD: "Province"
-    //     },
-    //     correctAnswer: "A"
-    // },
-
-    // {
-    //     question: "What is Preah CSS?",
-    //     answers: {
-    //         choiceA: "Teample",
-    //         choiceB: "Cascading Style Sheets",
-    //         choiceC: "Commune",
-    //         choiceD: "Province"
-    //     },
-    //     correctAnswer: "B"
-    // }
-// ]
+let quizDatas = [];
+let userChoosed = [];
 let currentQuestionIndex = 1;
 let totalScore = 0;
 
@@ -49,7 +26,7 @@ const showQuiz = (datas) => {
 }
 
 const showQuestion = (datas) => {
-    title_question.textContent = datas.question
+    title_question.textContent = datas.question_title
     answerA.textContent = datas.answers.choiceA;
     answerB.textContent = datas.answers.choiceB;
     answerC.textContent = datas.answers.choiceC;
@@ -67,25 +44,23 @@ const hide = (element) => {
 }
 
 const clickAnswer = (choice) => {
-    if (choice === quiz_datas[currentQuestionIndex-1].correctAnswer){
+    userChoosed.push(choice);
+    console.log(userChoosed);
+    if (choice === quizDatas[currentQuestionIndex-1].correctAnswer){
         totalScore += 1;
     }
-    if(currentQuestionIndex < quiz_datas.length){
-        showQuestion(quiz_datas[currentQuestionIndex]);
+    if(currentQuestionIndex < quizDatas.length){
+        showQuestion(quizDatas[currentQuestionIndex]);
         currentQuestionIndex += 1;
+        
     }else{
         hide(containQuestion);
         show(core);
-        showScore(totalScore/quiz_datas.length);
+        showScore(totalScore/quizDatas.length);
     }
-}
-
-const getData = (data) => {
     
 }
 
-hide(containQuestion);
-hide(core);
 
 const showScore = (totalScore) => {
     let score = document.querySelector('.score');
@@ -102,26 +77,48 @@ const displayQuiz = () => {
         showQuiz(data);
     })
 }
+
 displayQuiz();
 
-
+// To play quizzes when the user created
 const playQuiz = (e) => {
     e.preventDefault();
     let quizClass = e.target.className;
     let quizId = e.target.id;
     if(quizClass == "quiz-title"){
         hide(quiz);
-        show(containQuestion)
-        axios.get("/getQuestionOfQuiz/" + quizId)
+        axios.get("/questions/getQuestionOfQuiz/" + quizId)
         .then((response) => {
-            console.log(response)
-            quiz_datas  = response.data;
-            showQuestion(quiz_datas[0]);
-    })
+            if (response.data.length > 0){
+                show(containQuestion)
+                quizDatas  = response.data;
+                showQuestion(quizDatas[0]);
+            }else{
+                show(noData)
+            }
+        })
     }
 } 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+hide(noData)
+hide(containQuestion);
+hide(core);
 quiz.addEventListener('click', playQuiz);
-// const quizTitles = document.querySelector('.quiz-title');
-// console.log(quizTitles)
+goodBadAnswer.addEventListener('click', showGoodBadAnswers);

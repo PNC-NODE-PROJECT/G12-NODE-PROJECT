@@ -106,7 +106,13 @@ body {
 .create-question{
     width: 50%;
 }
+.bg-correct{
+    background: rgb(0, 255, 128);
+}
 
+.bg-incorrect{
+    background: rgb(222, 16, 54);
+}
 
 @media (max-width: 768px){
     .create-question{
