@@ -6,7 +6,6 @@ let anC = document.querySelector("#choiceC");
 let anD = document.querySelector("#choiceD");
 // Check correct answers
 let correctA = document.getElementById("correctA");
-console.log(correctA);
 let correctB = document.getElementById("correctB")
 let correctC = document.getElementById("correctC")
 let correctD = document.getElementById("correctD")
@@ -19,6 +18,10 @@ const show = (element) => {
 }
 
 function displayQuestion() {
+    while (screenToDisplay.firstChild) {
+        screenToDisplay.removeChild(screenToDisplay.lastChild);
+    }
+
     axios.get(URL + "/questions").then((respone) => {
         let questions = respone.data;
         // console.log(questions[0].answers.choiceA);
@@ -37,7 +40,6 @@ function displayQuestion() {
             let answerA = document.createElement('p');
             answerA.className = "answerDisplay";
             answerA.textContent = question.answers.choiceA;
-            console.log(answerA);
 
             let answerB = document.createElement('p');
             answerB.className = "answerDisplay";
@@ -72,12 +74,15 @@ function displayQuestion() {
             editQuestion.textContent = "mode_edit";
 
 
-            let deleteQuestion = document.createElement('i');
+            let iconDelete = document.createElement('i');
             // deleteQuestion.src = "../../public/images/trash.png";
             // trashAction.addEventListener("click", removeQuestion);
-            deleteQuestion.className = "material-icons delete";
-            deleteQuestion.style = "font-size:30px;color:white";
-            deleteQuestion.textContent = "delete";
+            iconDelete.className = "material-icons delete";
+            iconDelete.style = "font-size:30px;color:white";
+            iconDelete.textContent = "delete";
+            iconDelete.addEventListener("click", deleteQuestion);
+            // let btnDeletes = document.querySelectorAll(".delete");
+
 
             card.appendChild(titleQuestion);
             answers.appendChild(answerA);
@@ -87,17 +92,18 @@ function displayQuestion() {
             card.appendChild(answers);
             card.appendChild(hr);
             card.appendChild(editQuestion);
-            card.appendChild(deleteQuestion);
-
+            card.appendChild(iconDelete);
             screenToDisplay.appendChild(card);
-        }
 
+
+        }
     })
 }
 
 // Create answers & question
-function createQuestion() {
+function createQuestion(e) {
     // Check correct answers
+    e.preventDefault();
     let correctAn = '';
     if (correctA.checked) {
         correctAn = "A";
@@ -125,10 +131,22 @@ function createQuestion() {
     })
 }
 
+function deleteQuestion(e) {
+    let id = e.target.parentElement.id;
+    console.log('delete id:', id);
+    axios.delete(URL + "/questions/delete/" + id)
+        .then((respone) => {
+            Swal.fire(
+                'Deleted!',
+                'Your question has been deleted.',
+                'success'
+            );
+            displayQuestion();
+        })
+}
 const btnCreate = document.querySelector('#create');
 const screenToDisplay = document.querySelector(".displayQuestion");
 axios.get(URL + "/questions").then((respone) => {
-    console.log(respone.data)
     if (respone.data.length <= 0) {
         hide(screenToDisplay)
     } else {
