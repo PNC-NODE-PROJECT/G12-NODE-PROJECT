@@ -216,6 +216,7 @@
  .container {
      box-sizing: border-box;
      padding-bottom: 1px;
+     background: #fff;
  }
  
  .b-radius {
@@ -325,10 +326,12 @@
  .bg-incorrect {
      background: rgb(222, 16, 54);
  }
- .bg-sm-none{
+ 
+ .bg-sm-none {
      background: #fff;
      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
  }
+ 
  @media (max-width: 768px) {
      .create-question {
          width: 100%;
