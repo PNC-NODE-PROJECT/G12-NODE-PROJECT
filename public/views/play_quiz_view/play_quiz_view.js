@@ -112,7 +112,7 @@ const showGoodBadAnswers = () => {
         let answer3 = document.createElement('p');
         let answer4 = document.createElement('p');
 
-        containOneQuestion.className = 'bg-secondary mb-4 p-lg-4 b-radius p-sm-1';
+        containOneQuestion.className = 'bg-sm-none mb-4 p-lg-4 b-radius p-sm-1';
         titleQuestion.className = "p-2 border-bottom mb-4";
         answer1.className = "p-2 form-control";
         answer2.className = "p-2 form-control";
