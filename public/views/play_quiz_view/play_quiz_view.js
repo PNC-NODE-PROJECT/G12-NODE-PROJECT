@@ -15,6 +15,9 @@ let userChoosed = [];
 let currentQuestionIndex = 1;
 let totalScore = 0;
 
+// import { hide, show } from "../js/functions.js";
+
+
 const showQuiz = (datas) => {
     for(let data of datas) {
         let title = document.createElement('div');
