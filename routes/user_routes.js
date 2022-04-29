@@ -3,7 +3,7 @@ const router = express.Router()
 
 
 // import Task model
-const userModel = require("../models/user_models").user;
+const userModel = require("../models/user_models").users;
 // const userModel = Data.user;
 
 // Define static route
@@ -11,39 +11,39 @@ const userModel = require("../models/user_models").user;
 
 // TODO: Define dynamic routes
 // Get user data from DB
-router.get('/', (req, res)=>{
-  userModel.find()
-  .then((result)=> {
-      res.send(result);
-  })
-  .catch((error)=>{
-      res.send(error);
+router.get('/', (req, res) => {
+        userModel.find()
+            .then((result) => {
+                res.send(result);
+            })
+            .catch((error) => {
+                res.send(error);
 
-  });
+            });
+    })
+    // add to user
+router.post('/addUser', (req, res) => {
+    let element = req.body;
+    userModel.create(element)
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 })
-// // add to user
-// router.post('/addUser', (req, res)=>{
-//   let element =req.body;
-//   userModel.create(element)
-//   .then((result)=>{
-//       res.send(result);
-//   })
-//   .catch((error)=>{
-//       console.log(error);
-//   });
-// })
 
-// // delete
-// router.delete("/deleteuser/:id", (req, res)=>{
-//   userModel.deleteOne({_id: req.params.id})
-//   .then((result)=>{
-//       res.send(result);
-//   })
-//   .catch((error)=>{
-//       console.log(error);
-//       res.send(error);
-//   });
-// })
+// delete
+router.delete("/deleteuser/:id", (req, res) => {
+    userModel.deleteOne({ _id: req.params.id })
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.send(error);
+        });
+})
 
 
 

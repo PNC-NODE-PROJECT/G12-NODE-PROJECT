@@ -102,8 +102,8 @@ function displayQuestion() {
 
 // Create answers & question
 function createQuestion(e) {
-    // Check correct answers
     e.preventDefault();
+    // Check correct answers
     let correctAn = '';
     if (correctA.checked) {
         correctAn = "A";
