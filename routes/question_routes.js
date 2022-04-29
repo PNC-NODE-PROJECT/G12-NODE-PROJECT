@@ -47,7 +47,7 @@ router.delete("/delete/:id", (req, res)=>{
   })
 
   // update
-router.put("/update/:id", (req, res) => {
+router.put("/updateQuestionData/:id", (req, res) => {
     let data = req.body
     console.log({_id: req.params.id},
       { question_title: req.body.question_title},
