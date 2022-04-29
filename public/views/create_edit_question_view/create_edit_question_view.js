@@ -41,7 +41,6 @@ function displayQuestion() {
             let answerA = document.createElement('p');
             answerA.className = "answerDisplay";
             answerA.textContent = question.answers.choiceA;
-            console.log(answerA);
 
             let answerB = document.createElement('p');
             answerB.className = "answerDisplay";
@@ -77,12 +76,15 @@ function displayQuestion() {
             editQuestion.addEventListener("click", editQuestionElement);
 
 
-            let deleteQuestion = document.createElement('i');
+            let iconDelete = document.createElement('i');
             // deleteQuestion.src = "../../public/images/trash.png";
-            deleteQuestion.className = "material-icons delete";
-            deleteQuestion.style = "font-size:30px;color:white";
-            deleteQuestion.textContent = "delete";
             // trashAction.addEventListener("click", removeQuestion);
+            iconDelete.className = "material-icons delete";
+            iconDelete.style = "font-size:30px;color:white";
+            iconDelete.textContent = "delete";
+            iconDelete.addEventListener("click", deleteQuestion);
+            // let btnDeletes = document.querySelectorAll(".delete");
+
 
             card.appendChild(titleQuestion);
             answers.appendChild(answerA);
@@ -92,17 +94,17 @@ function displayQuestion() {
             card.appendChild(answers);
             card.appendChild(hr);
             card.appendChild(editQuestion);
-            card.appendChild(deleteQuestion);
-
+            card.appendChild(iconDelete);
             screenToDisplay.appendChild(card);
-        }
 
+
+        }
     })
 }
 // Create answers & question
 function createQuestion(e) {
-    e.preventDefault();
     // Check correct answers
+    e.preventDefault();
     let correctAn = '';
    
     if (correctA.checked) {
@@ -163,7 +165,6 @@ function createQuestion(e) {
         })
     }
 }
-
 // edit qusetions
 function editQuestionElement(e){
     e.preventDefault();
@@ -202,11 +203,23 @@ function editQuestionElement(e){
 }
 
 let idToUdate = "";
-let btnCreate = document.querySelector('#create');
 let btn=true;
+function deleteQuestion(e) {
+    let id = e.target.parentElement.id;
+    console.log('delete id:', id);
+    axios.delete(URL + "/questions/delete/" + id)
+        .then((respone) => {
+            Swal.fire(
+                'Deleted!',
+                'Your question has been deleted.',
+                'success'
+            );
+            displayQuestion();
+        })
+}
+const btnCreate = document.querySelector('#create');
 const screenToDisplay = document.querySelector(".displayQuestion");
 axios.get(URL + "/questions").then((respone) => {
-    console.log(respone.data)
     if (respone.data.length <= 0) {
         hide(screenToDisplay)
     } else {
