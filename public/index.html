@@ -9,11 +9,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container bg-info w-50 mt-5 pb-5 b-radius">
+    <div class="contain-sign-in container w-50 mt-5 pb-3 b-radius">
+        <h2 class="w-100 mt-5 text-center">Sign In</h2>
+        <form class=" w-75 m-auto">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" id="sign-in" class="btn w-100 btn-primary">Sign In</button>
+            <p class="w-100 text-center mt-3 go-sign-up">Sign Up</p>
+            <a href="views/play_quiz_view/play_quiz_view.html">Play Quiz</a>
+        </form>
+    </div>
+    <div class="contain-sign-up container w-50 mt-5 pb-3 b-radius">
         <h2 class="w-100 mt-5 text-center">Sign Up</h2>
         <form class=" w-75 m-auto">
             <div class="mb-3">
@@ -32,9 +47,12 @@
                 <label class="form-label" for="exampleCheck">Confirm Password</label>
                 <input type="password" class="form-control" id="exampleCheck">
             </div>
-            <button type="submit" class="btn w-100 btn-primary">Sign Up</button>
+            <button type="submit" id="sign-up" class="btn w-100 btn-primary">Sign Up</button>
+            <p class="w-100 text-center mt-3 go-sign-in">Sign In</p>
         </form>
+        <a href="views/play_quiz_view/play_quiz_view.html">Play Quiz</a>
     </div>
+    <script src="views/login/login_sign_up.js"></script>
 </body>
 
 </html>

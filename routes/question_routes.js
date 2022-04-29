@@ -70,6 +70,19 @@ router.put("/update/:id", (req, res) => {
     });
   });
 
+//   get question that have id of quiz from user request 
+router.get('/getQuestionOfQuiz/:id', (req, res)=>{
+    questionModel.find({quizzId: req.params.id})
+    .then((result)=> {
+        console.log( req.params.id);
+        res.send(result);
+    })
+    .catch((error)=>{
+        res.send(error);
+  
+    });
+  })
+
 module.exports = router
 
 

@@ -95,7 +95,7 @@ function displayQuestion() {
     })
 }
 
-// // Create answers
+// Create answers
 // function createQuestion() {
 //     // Check correct answers
 //     let correctAn = '';

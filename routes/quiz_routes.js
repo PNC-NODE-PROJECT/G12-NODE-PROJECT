@@ -13,6 +13,7 @@ const quizModel = require("../models/quiz_models");
 // Get quiz data from DB
 router.get('/', (req, res)=>{
     quizModel.find()
+    .populate("userID")
   .then((result)=> {
       res.send(result);
   })
@@ -43,6 +44,21 @@ router.get('/', (req, res)=>{
 //     .catch((error)=>{
 //         console.log(error);
 //         res.send(error);
+//     });
+//   })
+
+
+//   get question that have id of quiz from user request 
+// router.get('/getUserOfQuiz/:id', (req, res)=>{
+//     quizModel.find({userID :req.params.id})
+//     .then((result)=> {
+//         console.log(req.params.id);
+//         console.log(result);
+//         res.send(result);
+//     })
+//     .catch((error)=>{
+//         res.send(error);
+  
 //     });
 //   })
 

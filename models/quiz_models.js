@@ -8,6 +8,11 @@ const quizSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
+    },
+    userID:{
+      type: mongoose.Types.ObjectId,
+      ref: "users"
+
     }
 });
 
