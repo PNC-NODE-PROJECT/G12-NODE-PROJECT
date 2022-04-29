@@ -4,10 +4,11 @@ const answerB = document.querySelector('#answer-B');
 const answerC = document.querySelector('#answer-C');
 const answerD = document.querySelector('#answer-D');
 const title_question = document.querySelector('.title-question');
-const core = document.querySelector('.show-score');
+const domScore = document.querySelector('.show-score');
 const containQuestion = document.querySelector(".contain-question");
 const noData = document.querySelector('#no-data');
-const goodBadAnswer = document.querySelector('#good-bad-answer');
+const goodBadAnswer = document.querySelector('#btn-good-bad-answer');
+const domShowGoodBadAnswers = document.querySelector('#show-good-bad-answers')
 
 let quizDatas = [];
 let userChoosed = [];
@@ -45,7 +46,6 @@ const hide = (element) => {
 
 const clickAnswer = (choice) => {
     userChoosed.push(choice);
-    console.log(userChoosed);
     if (choice === quizDatas[currentQuestionIndex-1].correctAnswer){
         totalScore += 1;
     }
@@ -55,7 +55,7 @@ const clickAnswer = (choice) => {
         
     }else{
         hide(containQuestion);
-        show(core);
+        show(domScore);
         showScore(totalScore/quizDatas.length);
     }
     
@@ -64,7 +64,7 @@ const clickAnswer = (choice) => {
 
 const showScore = (totalScore) => {
     let score = document.querySelector('.score');
-    score.textContent = totalScore * 100 + '%';
+    score.textContent = (totalScore* 100).toFixed()  + '%';
 }
 
 
@@ -101,24 +101,68 @@ const playQuiz = (e) => {
 } 
 
 
+const showGoodBadAnswers = () => {
+    show(domShowGoodBadAnswers)
+    hide(domScore)
+    let correctAnswerIndex = 0;
+    for (let questionData of quizDatas){
+        let containOneQuestion = document.createElement('div');
+        let titleQuestion = document.createElement('h3')
+        let answer1 = document.createElement('p');
+        let answer2 = document.createElement('p');
+        let answer3 = document.createElement('p');
+        let answer4 = document.createElement('p');
 
+        containOneQuestion.className = 'bg-secondary mb-4 p-lg-4 b-radius p-sm-1';
+        titleQuestion.className = "p-2 border-bottom mb-4";
+        answer1.className = "p-2 form-control";
+        answer2.className = "p-2 form-control";
+        answer3.className = "p-2 form-control";
+        answer4.className = "p-2 form-control";
 
+        // console.log(questionData.question_title)
 
+        titleQuestion.textContent = questionData.question_title
+        answer1.textContent = questionData.answers.choiceA
+        answer2.textContent = questionData.answers.choiceB
+        answer3.textContent = questionData.answers.choiceC
+        answer4.textContent = questionData.answers.choiceD
+        
+        containOneQuestion.appendChild(titleQuestion)
+        containOneQuestion.appendChild(answer1);
+        containOneQuestion.appendChild(answer2);
+        containOneQuestion.appendChild(answer3);
+        containOneQuestion.appendChild(answer4);
+        domShowGoodBadAnswers.appendChild(containOneQuestion);
 
+        if(questionData.correctAnswer == "A"){
+            answer1.classList.add("bg-correct") ;
+        }else if(questionData.correctAnswer == "B"){
+            answer2.classList.add("bg-correct") ;
+        }else if(questionData.correctAnswer == "C"){
+            answer3.classList.add("bg-correct") ;
+        }else{
+            answer4.classList.add("bg-correct") ;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
+        if(questionData.correctAnswer != userChoosed[correctAnswerIndex]){
+            if(userChoosed[correctAnswerIndex] == "A"){
+                answer1.classList.add("bg-incorrect") ;
+            }else if(userChoosed[correctAnswerIndex] == "B"){
+                answer2.classList.add("bg-incorrect") ;
+            }else if(userChoosed[correctAnswerIndex] == "C"){
+                answer3.classList.add("bg-incorrect") ;
+            }else{
+                answer4.classList.add("bg-incorrect") ;
+            }
+        }
+        correctAnswerIndex += 1;
+        console.log(questionData.correctAnswer);
+    }
+}
+hide(domShowGoodBadAnswers)
 hide(noData)
 hide(containQuestion);
-hide(core);
+hide(domScore);
 quiz.addEventListener('click', playQuiz);
 goodBadAnswer.addEventListener('click', showGoodBadAnswers);
