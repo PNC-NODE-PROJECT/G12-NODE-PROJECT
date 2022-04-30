@@ -157,7 +157,6 @@ function createQuestion(e) {
             // edit qusetions
             btn=true;
             btnCreate.textContent="Create"
-            console.log(e.target.parentNode.id)
             document.querySelector("#title").value=""
             document.querySelector("#choiceA").value=""
             document.querySelector("#choiceB").value=""
@@ -186,8 +185,6 @@ function createQuestion(e) {
 // edit qusetions
 function editQuestionElement(e){
     e.preventDefault();
-
-    console.log(e.target.parentNode.id);
     idToUdate=e.target.parentNode.id;
     document.querySelector('.displayQuestion').style.display = 'none';
     axios.get(URL + "/questions").then((respone) => {
@@ -224,7 +221,6 @@ let btn=true;
 function deleteQuestion(e) {
     let id = e.target.parentElement.id;
     let quizId = e.target.id
-    // console.log(quizId, "hello world")
     axios.delete(URL + "/questions/delete/" + id)
     .then((respone) => {
         Swal.fire(

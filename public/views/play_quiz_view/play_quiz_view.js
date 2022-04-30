@@ -10,10 +10,10 @@ const containQuestion = document.querySelector(".contain-question");
 const noData = document.querySelector('#no-data');
 const goodBadAnswer = document.querySelector('#btn-good-bad-answer');
 const domShowGoodBadAnswers = document.querySelector('#show-good-bad-answers')
-
+const backFromShowcorrectAnswer = document.querySelector('#back-from-show-correction')
 const btnCancel = document.querySelector('#cancel');
 const btnPlayAgain = document.querySelector('#play-again');
-
+const backFromNoquestion = document.querySelector('.back-from-noquestion');
 let quizDatas = [];
 let userChoosed = [];
 let currentQuestionIndex = 1;
@@ -76,8 +76,14 @@ const backToShowQuiz = () => {
     quizDatas = [];
     userChoosed = [];
     totalScore = 0;
-
+    
 }
+
+const hideGoodBadAnswers = () => {
+    backToShowQuiz();
+    hide(domShowGoodBadAnswers);
+}
+
 
 const showScore = (totalScore) => {
     let score = document.querySelector('.score');
@@ -141,9 +147,7 @@ const showGoodBadAnswers = () => {
         answer2.className = "p-2 form-control";
         answer3.className = "p-2 form-control";
         answer4.className = "p-2 form-control";
-
-        // console.log(questionData.question_title)
-
+        
         titleQuestion.textContent = questionData.question_title;
         answer1.textContent = questionData.answers.choiceA;
         answer2.textContent = questionData.answers.choiceB;
@@ -181,10 +185,20 @@ const showGoodBadAnswers = () => {
         correctAnswerIndex += 1;
     }
 }
+
+// Hide pages nesessery 
 hide(domShowGoodBadAnswers);
 hide(noData);
 hide(containQuestion);
 hide(domScore);
+
+
+// Add buttons for click
 quiz.addEventListener('click', playQuiz);
 goodBadAnswer.addEventListener('click', showGoodBadAnswers);
-btnCancel.addEventListener('click', backToShowQuiz)
+btnCancel.addEventListener('click', backToShowQuiz);
+backFromShowcorrectAnswer.addEventListener('click', hideGoodBadAnswers);
+backFromNoquestion.addEventListener('click', (event) =>{
+    hide(noData);
+    show(domShowQuiz);
+});
