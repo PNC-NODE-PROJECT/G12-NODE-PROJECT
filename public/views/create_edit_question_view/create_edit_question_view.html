@@ -17,7 +17,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
-
 <body>
     <nav>
         <ul>
@@ -26,14 +25,16 @@
         </ul>
         <ul>
             <li class="active"><a href="edit.html">Edit quiz</a></li>
-            <li><a href="../play/play.html">Play quiz</a></li>
+            <li><a href="../play/play.html">Play quiz</a></li>           
         </ul>
     </nav>
     <div class="container mt-3 show-title-quiz">
         <label style="font-size:25px">Title Quiz</label>
-        <input id="title-quiz" type="text" placeholder="Question title" class="as" />
-
+        <input id="titleQUestion" type="text" placeholder="Question title" class="as p-2 b-radius" />
+        <a href="../../index.html" class="px-4 py-2 btn bg-secondary b-radius">Cancel</a>
+        <button id="btn-create-quiz" class="px-4 py-2 b-radius mb-3 mt-4 bg-info" >Create</button>
     </div>
+
     <div class="container show-create-question">
         <header style="font-size:35px;text-align:center" name="create-question">Create new question</header>
         <section>
@@ -57,13 +58,13 @@
             </div>
             <div class="text-danger validationchoice" id="validationChoiceC"></div>
             <div class="form-group">
+
                 <input type="radio" class="correct" name="correct" id="correctD" value="D">
                 <input id="choiceD" type="text" placeholder="Answer D" class="as" />
             </div>
             <div class="text-danger validationchoice" id="validationChoiceD"></div>
         </section>
         <menu>
-            <button id="cancel">Cancel</button>
             <button id="create">Create</button>
         </menu>
     </div>
@@ -71,6 +72,6 @@
 
     </div>
 </body>
-<script src="create_edit_question_view.js"></script>
+<script src="create_edit_question_view.js" type="module"></script>
 
 </html>

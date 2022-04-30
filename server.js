@@ -16,9 +16,6 @@ app.use(express.static("views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
-
-
-
 app.listen(PORT, () => {
     console.log("http://localhost:80");
 })

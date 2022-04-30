@@ -23,8 +23,10 @@
         </ul>
     </nav>
     <div class="container">
-        <div class="row grid  gap-2" id="quiz">
+        <div id="dom-show-quiz" >
+            <div class="row grid  gap-2" id="quiz">
 
+            </div>
         </div>
         <div class="contain-question">
             <div class="title-question my-2 p-3 w-100 text-center">How many bootstrap does it have now?</div>
@@ -34,23 +36,37 @@
                 <button id="answer-C" onclick="clickAnswer('C')" class="grid-item">My Answer C</button>
                 <button id="answer-D" onclick="clickAnswer('D')" class="grid-item">My Answer D</button>
             </div>
+            <div id="progress-bar" class="w-100 bg-primary h-25">
+                <div class="index-question">
+                </div>
+            </div>
         </div>
-        <h1 class ="text-center w-100" id="no-data"> No question Hear! </h1>
+        <div id="no-data" class="container">
+            <span class="back-from-noquestion bg-secondary text-white">Back</span>
+            <br>
+            <div class="contain-img">
+                <img src="../../images/no-question.png" alt="">
+            </div>
+        </div>
+        
     </div>
     <div class="container show-score mt-5">
-        <button class = "b-radius borer-1 px-3 py-1  border-success" id="btn-good-bad-answer">Show Corrections</button>
+        <button class = "b-radius borer-1 px-3 py-1 border-success" id="btn-good-bad-answer">Show Corrections</button>
         <h1 class = "text-center m-auto ">Your score is:</h1>
         <h1 class = "score m-auto text-center w-auto"> 90% </h1>
 
-        <div class="btn-send w-100 d-flex justify-content-end">
-            <button class = "b-radius borer-1 border-success px-3 py-1"id="cancel">Cancel</button>
-            <button class = "b-radius borer-1 border-success px-3 py-1 -3" id="create">Play again</button>
+        <div class="btn-send w-100  d-flex justify-content-center">
+            <button class = "b-radius borer-1 m-3 border-success px-4 py-2"id="cancel">Cancel</button>
+            <button class = "b-radius borer-1 m-3 border-success px-4 py-2" id="play-again">Play again</button>
         </div>
     </div>
-    <div class="container" id="show-good-bad-answers">
-        <h2 class="w-100 my-3 text-center">Corrections of this Quiz</h2>
-      </div>
-    <script src="play_quiz_view.js"></script>
+    <div class="container " id="show-good-bad-answers">
+        <div class="d-flex  justify-content-between mt-4 mb-4">
+            <span id="back-from-show-correction" class="text-white bg-secondary">Back</span>
+            <h2 class="my-3bg-danger">Corrections of this Quiz</h2>
+        </div>
+    </div>
+    <script src="play_quiz_view.js" type=""></script>
 </body>
 
 </html>

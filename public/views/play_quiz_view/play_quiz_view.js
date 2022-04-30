@@ -1,4 +1,5 @@
 const quiz = document.querySelector('#quiz');
+const domShowQuiz = document.querySelector('#dom-show-quiz');
 const answerA = document.querySelector('#answer-A');
 const answerB = document.querySelector('#answer-B');
 const answerC = document.querySelector('#answer-C');
@@ -9,12 +10,15 @@ const containQuestion = document.querySelector(".contain-question");
 const noData = document.querySelector('#no-data');
 const goodBadAnswer = document.querySelector('#btn-good-bad-answer');
 const domShowGoodBadAnswers = document.querySelector('#show-good-bad-answers')
-
+const backFromShowcorrectAnswer = document.querySelector('#back-from-show-correction')
+const btnCancel = document.querySelector('#cancel');
+const btnPlayAgain = document.querySelector('#play-again');
+const backFromNoquestion = document.querySelector('.back-from-noquestion');
 let quizDatas = [];
 let userChoosed = [];
 let currentQuestionIndex = 1;
 let totalScore = 0;
-
+// import { hide, show } from "../js/functions.js";
 const showQuiz = (datas) => {
     for(let data of datas) {
         let title = document.createElement('div');
@@ -50,15 +54,34 @@ const clickAnswer = (choice) => {
         totalScore += 1;
     }
     if(currentQuestionIndex < quizDatas.length){
+        progressBar(currentQuestionIndex + "/" + quizDatas.length, currentQuestionIndex / quizDatas.length)
         showQuestion(quizDatas[currentQuestionIndex]);
         currentQuestionIndex += 1;
         
     }else{
+        let indexQuestion = document.querySelector('.index-question');
+        indexQuestion.textContent = "";
+        indexQuestion.style.width =  "0%";
         hide(containQuestion);
         show(domScore);
         showScore(totalScore/quizDatas.length);
     }
     
+}
+
+const backToShowQuiz = () => {
+    show(domShowQuiz);
+    hide(domScore);
+    currentQuestionIndex = 1;
+    quizDatas = [];
+    userChoosed = [];
+    totalScore = 0;
+    
+}
+
+const hideGoodBadAnswers = () => {
+    backToShowQuiz();
+    hide(domShowGoodBadAnswers);
 }
 
 
@@ -86,7 +109,7 @@ const playQuiz = (e) => {
     let quizClass = e.target.className;
     let quizId = e.target.id;
     if(quizClass == "quiz-title"){
-        hide(quiz);
+        hide(domShowQuiz);
         axios.get("/questions/getQuestionOfQuiz/" + quizId)
         .then((response) => {
             if (response.data.length > 0){
@@ -99,6 +122,12 @@ const playQuiz = (e) => {
         })
     }
 } 
+
+const progressBar = (textContent, progressing) => {
+    let indexQuestion = document.querySelector('.index-question');
+    indexQuestion.textContent = textContent;
+    indexQuestion.style.width = progressing*100 + "%";
+}
 
 const showGoodBadAnswers = () => {
     show(domShowGoodBadAnswers)
@@ -118,14 +147,12 @@ const showGoodBadAnswers = () => {
         answer2.className = "p-2 form-control";
         answer3.className = "p-2 form-control";
         answer4.className = "p-2 form-control";
-
-        // console.log(questionData.question_title)
-
-        titleQuestion.textContent = questionData.question_title
-        answer1.textContent = questionData.answers.choiceA
-        answer2.textContent = questionData.answers.choiceB
-        answer3.textContent = questionData.answers.choiceC
-        answer4.textContent = questionData.answers.choiceD
+        
+        titleQuestion.textContent = questionData.question_title;
+        answer1.textContent = questionData.answers.choiceA;
+        answer2.textContent = questionData.answers.choiceB;
+        answer3.textContent = questionData.answers.choiceC;
+        answer4.textContent = questionData.answers.choiceD;
         
         containOneQuestion.appendChild(titleQuestion)
         containOneQuestion.appendChild(answer1);
@@ -156,12 +183,22 @@ const showGoodBadAnswers = () => {
             }
         }
         correctAnswerIndex += 1;
-        console.log(questionData.correctAnswer);
     }
 }
-hide(domShowGoodBadAnswers)
-hide(noData)
+
+// Hide pages nesessery 
+hide(domShowGoodBadAnswers);
+hide(noData);
 hide(containQuestion);
 hide(domScore);
+
+
+// Add buttons for click
 quiz.addEventListener('click', playQuiz);
 goodBadAnswer.addEventListener('click', showGoodBadAnswers);
+btnCancel.addEventListener('click', backToShowQuiz);
+backFromShowcorrectAnswer.addEventListener('click', hideGoodBadAnswers);
+backFromNoquestion.addEventListener('click', (event) =>{
+    hide(noData);
+    show(domShowQuiz);
+});

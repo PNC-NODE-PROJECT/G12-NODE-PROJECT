@@ -1,5 +1,3 @@
-
-
 const URL = "http://localhost:80"
 let title = document.querySelector("#title");
 let anA = document.querySelector("#choiceA");
@@ -11,8 +9,16 @@ let correctA = document.getElementById("correctA");
 let correctB = document.getElementById("correctB")
 let correctC = document.getElementById("correctC")
 let correctD = document.getElementById("correctD")
+const showCreateQuestion = document.querySelector(".show-create-question");
+const btnCreate = document.querySelector('#create');
 
 
+// Quiz dom
+const showTitleQuiz = document.querySelector(".show-title-quiz");
+const btnCreateQuiz = document.querySelector("#btn-create-quiz");
+const screenToDisplay = document.querySelector(".displayQuestion");
+const domTitleQUestion = document.querySelector('#titleQUestion');
+// import { hide, show } from "../js/functions.js";
 const hide = (element) => {
     element.style.display = 'none';
 }
@@ -20,54 +26,55 @@ const show = (element) => {
     element.style.display = 'block';
 }
 
-function displayQuestion() {
+function displayQuestion(quizId) {
     while (screenToDisplay.firstChild) {
         screenToDisplay.removeChild(screenToDisplay.lastChild);
     }
-    axios.get(URL + "/questions").then((respone) => {
-        let questions = respone.data;
-        // console.log(questions[0].answers.choiceA);
-        for (let question of questions) {
 
-            let card = document.createElement("div");
-            card.id = question._id;
-            card.className = "mt-3 show-question-answers"
-            let titleQuestion = document.createElement("h4");
-            titleQuestion.className = "title";
-            titleQuestion.textContent = question.question_title;
+    axios.get("/questions/getQuestionOfQuiz/" + quizId).then((respone) => {
+        let getquestions = respone.data;
+        if (getquestions.length > 0) {
+            for (let question of getquestions) {
+                let card = document.createElement("div");
+                card.id = question._id;
+                card.className = "mt-3 show-question-answers"
+                let titleQuestion = document.createElement("h4");
+                titleQuestion.className = "title";
+                titleQuestion.textContent = question.question_title;
 
-            let answers = document.createElement("div");
-            answers.className = "answers";
+                let answers = document.createElement("div");
+                answers.className = "answers";
 
-            let answerA = document.createElement('p');
-            answerA.className = "answerDisplay";
-            answerA.textContent = question.answers.choiceA;
+                let answerA = document.createElement('p');
+                answerA.className = "answerDisplay";
+                answerA.textContent = question.answers.choiceA;
 
-            let answerB = document.createElement('p');
-            answerB.className = "answerDisplay";
-            answerB.textContent = question.answers.choiceB;
+                let answerB = document.createElement('p');
+                answerB.className = "answerDisplay";
+                answerB.textContent = question.answers.choiceB;
 
-            let answerC = document.createElement('p');
-            answerC.className = "answerDisplay";
-            answerC.textContent = question.answers.choiceC;
+                let answerC = document.createElement('p');
+                answerC.className = "answerDisplay";
+                answerC.textContent = question.answers.choiceC;
 
-            let answerD = document.createElement('p');
-            answerD.className = "answerDisplay";
-            answerD.textContent = question.answers.choiceD;
+                let answerD = document.createElement('p');
+                answerD.className = "answerDisplay";
+                answerD.textContent = question.answers.choiceD;
 
 
-            let correctAn = document.createElement('p');
-            correctAn.textContent = question.correctAnswer;
-            let hr = document.createElement('hr')
-            if (question.correctAnswer == "A") {
-                answerA.style.backgroundColor = "green";
-            } else if (question.correctAnswer == "B") {
-                answerB.style.backgroundColor = "green"
-            } else if (question.correctAnswer == "C") {
-                answerC.style.backgroundColor = "green"
-            } else if (question.correctAnswer == "D") {
-                answerD.style.backgroundColor = "green"
-            }
+                let correctAn = document.createElement('p');
+                correctAn.textContent = question.correctAnswer;
+                let hr = document.createElement('hr')
+                if (question.correctAnswer == "A") {
+                    answerA.style.backgroundColor = "green";
+                } else if (question.correctAnswer == "B") {
+                    answerB.style.backgroundColor = "green"
+                } else if (question.correctAnswer == "C") {
+                    answerC.style.backgroundColor = "green"
+                } else if (question.correctAnswer == "D") {
+                    answerD.style.backgroundColor = "green"
+                }
+               
             let editQuestion = document.createElement('i');
             editQuestion.className = "material-icons edit";
             editQuestion.style = "font-size:30px;color:white";
@@ -77,6 +84,7 @@ function displayQuestion() {
 
             let iconDelete = document.createElement('i');
             iconDelete.className = "material-icons delete";
+            iconDelete.id = quizId
             iconDelete.style = "font-size:30px;color:white";
             iconDelete.textContent = "delete";
             iconDelete.addEventListener("click", deleteQuestion);
@@ -95,17 +103,30 @@ function displayQuestion() {
 
 
         }
+     }
     })
 }
+
+const saveQuiqTitle = () => {
+    let quizTitle = {
+        title: domTitleQUestion.value,
+    }
+    axios.post('/quizzes/addQuiz', quizTitle)
+        .then((response) => {
+            hide(showTitleQuiz)
+            show(showCreateQuestion)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
 // Create answers & question
 function createQuestion(e) {
     
-        
-    e.preventDefault();
-  
     // Check correct answers
+    e.preventDefault();
     let correctAn = '';
-   
     if (correctA.checked) {
         correctAn = "A";
     } else if (correctB.checked) {
@@ -115,18 +136,25 @@ function createQuestion(e) {
     } else if (correctD.checked) {
         correctAn = "D";
     }
-    let body = {
-        question_title: title.value,
-        answers: {
-            choiceA: anA.value,
-            choiceB: anB.value,
-            choiceC: anC.value,
-            choiceD: anD.value,
 
-        },
-        correctAnswer: correctAn
-    }
-    
+    //     },
+    //     correctAnswer: correctAn
+    // }
+    let path = "/quizzes";
+    axios.get(path).then((response) => {
+        let lastQuiz = response.data.slice(-1);
+        let quizId = lastQuiz[0]._id
+        let body = {
+            question_title: title.value,
+            answers: {
+                choiceA: anA.value,
+                choiceB: anB.value,
+                choiceC: anC.value,
+                choiceD: anD.value,
+            },
+            correctAnswer: correctAn,
+            quizzId: quizId
+        }
    
  
     if(btn){
@@ -156,7 +184,7 @@ function createQuestion(e) {
                 correctB.checked=false;
                  correctC.checked=false;
                   correctD.checked=false
-                displayQuestion();
+                  displayQuestion(quizId);
                
                 Swal.fire(
                     'Created!',
@@ -212,7 +240,7 @@ function createQuestion(e) {
         
         axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
             show(screenToDisplay)
-            displayQuestion();
+            displayQuestion(quizId);
             correctA.checked=false;
             correctB.checked=false;
              correctC.checked=false;
@@ -223,18 +251,51 @@ function createQuestion(e) {
                 'Your question has been edited.',
                 'success'
             );
-
         }).catch((err)=>{
             console.log(err)
         })
     }
+   
+//         if(btn){
+//             // create question
+//             axios.post(URL + "/questions/create", body).then((respone) => {
+//                 show(screenToDisplay)
+//                 displayQuestion(quizId);
+//             })
+    
+//         }else{
+//             // edit qusetions
+//             btn=true;
+//             btnCreate.textContent="Create"
+//             document.querySelector("#title").value=""
+//             document.querySelector("#choiceA").value=""
+//             document.querySelector("#choiceB").value=""
+//             document.querySelector("#choiceC").value=""
+//             document.querySelector("#choiceD").value=""
+//             if(correctAn=="A"){
+//                 correctA.checked=false;
+//             }else if(correctAn=="B"){
+//                 correctB.checked=false;
+//             }else if(correctAn=="C"){
+//                 correctC.checked=false;
+//             }else if(correctAn=="D"){
+//                 correctD.checked=false;
+//             }
+//             axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
+//                 show(screenToDisplay)
+//                 displayQuestion(quizId);
+    
+//             }).catch((err)=>{
+//                 console.log(err)
+//             })
+//         }
+    })
 }
+
 // edit qusetions
 function editQuestionElement(e){
    
     e.preventDefault();
-
-    console.log(e.target.parentNode.id);
     idToUdate=e.target.parentNode.id;
     document.querySelector('.displayQuestion').style.display = 'none';
     axios.get(URL + "/questions").then((respone) => {
@@ -242,7 +303,6 @@ function editQuestionElement(e){
         btnCreate.textContent="Edit"
         btn=false
         for (let data of questions) {
-            
             // enter value to input on the form
             if (data._id == e.target.parentNode.id) {
             document.querySelector("#title").value=data.question_title
@@ -270,27 +330,23 @@ function editQuestionElement(e){
 
 let idToUdate = "";
 let btn=true;
+
 function deleteQuestion(e) {
     let id = e.target.parentElement.id;
-    console.log('delete id:', id);
+    let quizId = e.target.id
     axios.delete(URL + "/questions/delete/" + id)
-        .then((respone) => {
-            Swal.fire(
-                'Deleted!',
-                'Your question has been deleted.',
-                'success'
-            );
-            displayQuestion();
-        })
+    .then((respone) => {
+        Swal.fire(
+            'Deleted!',
+            'Your question has been deleted.',
+            'success'
+        );
+        console.log(quizId)
+        displayQuestion(quizId);
+    })
 }
-const btnCreate = document.querySelector('#create');
-const screenToDisplay = document.querySelector(".displayQuestion");
-axios.get(URL + "/questions").then((respone) => {
-    if (respone.data.length <= 0) {
-        hide(screenToDisplay)
-    } else {
-        displayQuestion()
-    }
-})
 
+hide(showCreateQuestion);
+hide(screenToDisplay);
 btnCreate.addEventListener('click', createQuestion);
+btnCreateQuiz.addEventListener('click', saveQuiqTitle);

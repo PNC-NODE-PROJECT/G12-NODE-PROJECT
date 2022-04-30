@@ -1,11 +1,11 @@
 
 // Fucntion show elemet
-export const show = (element) => {
+export function show (element) {
     element.style.display = 'block';
 }
 
 // Fucntion hide elemet
-export const hide = (element) => {
+export function hide (element){
     element.style.display = 'none';
 }
 

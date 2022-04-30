@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="contain-sign-in container w-50 mt-5 pb-3 b-radius">
+    <div style="display: none;" class="contain-sign-in container w-50 mt-5 pb-3 b-radius">
         <h2 class="w-100 mt-5 text-center">Sign In</h2>
         <form class=" w-75 m-auto">
             <div class="mb-3">
@@ -58,7 +58,33 @@
         </form>
         <a href="views/play_quiz_view/play_quiz_view.html">Play Quiz</a>
     </div>
-    <script src="views/login/login_sign_up.js"></script>
+    <div  class="contain-home w-100">
+        <nav>
+            <ul>
+                <a href="../../index.html"><img src="../../images/quiz_logo.png" /></a>
+                <h2>Quiz App</h2>
+            </ul>
+            <ul>
+                <li class="active"><a href="edit.html">Edit quiz</a></li>
+                <li><a href="../play/play.html">Play quiz</a></li>
+            </ul>
+        </nav>
+        <div class="container mt-5 contain-link d-flex w-75 m-auto">
+            <div class="play-quiz control-img">
+                <img src="images/play.png" alt="">
+                <div class="w-100 btn-link">
+                    <a class="text-white text-decoration-none mt-3" href="views/play_quiz_view/play_quiz_view.html">Play Quiz</a>
+                </div>
+            </div>
+            <div class="create-quiz control-img">
+                <img src="images/create.png" alt="">
+                <div class="w-100 btn-link">
+                    <a class="text-white text-decoration-none mt-3" href="views/create_edit_question_view/create_edit_question_view.html">Create Quiz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="views/login/login_sign_up.js" type="module"></script>
 </body>
 
 </html>
