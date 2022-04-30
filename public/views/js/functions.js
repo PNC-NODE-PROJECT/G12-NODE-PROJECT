@@ -9,3 +9,7 @@ export const hide = (element) => {
     element.style.display = 'none';
 }
 
+
+
+
+

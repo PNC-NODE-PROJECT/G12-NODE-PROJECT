@@ -12,6 +12,7 @@ let correctB = document.getElementById("correctB")
 let correctC = document.getElementById("correctC")
 let correctD = document.getElementById("correctD")
 
+
 const hide = (element) => {
     element.style.display = 'none';
 }
@@ -68,8 +69,6 @@ function displayQuestion() {
                 answerD.style.backgroundColor = "green"
             }
             let editQuestion = document.createElement('i');
-            // editQuestion.src = "../../public/images/edit.png";
-            // editQuestion.for = "create-question"
             editQuestion.className = "material-icons edit";
             editQuestion.style = "font-size:30px;color:white";
             editQuestion.textContent = "mode_edit";
@@ -77,13 +76,10 @@ function displayQuestion() {
 
 
             let iconDelete = document.createElement('i');
-            // deleteQuestion.src = "../../public/images/trash.png";
-            // trashAction.addEventListener("click", removeQuestion);
             iconDelete.className = "material-icons delete";
             iconDelete.style = "font-size:30px;color:white";
             iconDelete.textContent = "delete";
             iconDelete.addEventListener("click", deleteQuestion);
-            // let btnDeletes = document.querySelectorAll(".delete");
 
 
             card.appendChild(titleQuestion);
@@ -103,7 +99,10 @@ function displayQuestion() {
 }
 // Create answers & question
 function createQuestion(e) {
+    
+        
     e.preventDefault();
+  
     // Check correct answers
     let correctAn = '';
    
@@ -127,26 +126,80 @@ function createQuestion(e) {
         },
         correctAnswer: correctAn
     }
-    // console.log(btnCreate.id);
+    
+   
  
     if(btn){
         // create question
-        axios.post(URL + "/questions/create", body).then((respone) => {
-            show(screenToDisplay)
-            displayQuestion();
-        })
+        let valititle=document.getElementById("validationTitle");
+        let valiChoiA=document.getElementById("validationChoiceA");
+        let valiChoiB=document.getElementById("validationChoiceB");
+        let valiChoiC=document.getElementById("validationChoiceC");
+        let valiChoiD=document.getElementById("validationChoiceD");
+        valititle.textContent=""
+        valiChoiA.textContent=""
+        valiChoiB.textContent=""
+        valiChoiC.textContent=""
+        valiChoiD.textContent=""
+        
+        let allChoicesRedio=correctA.checked!=false || correctB.checked!=false || correctC.checked!=false || correctD.checked!=false ;
+        let allInputOnfrom=title.value!="" && anA.value!="" && anB.value!="" && anC.value!="" && anD.value!="";
+        if( allInputOnfrom && allChoicesRedio){ 
+            axios.post(URL + "/questions/create", body).then((respone) => {
+                show(screenToDisplay)
+                title.value=""
+                anA.value=""
+                anB.value=""
+                anC.value=""
+                anD.value=""
+               correctA.checked=false;
+                correctB.checked=false;
+                 correctC.checked=false;
+                  correctD.checked=false
+                displayQuestion();
+               
+                Swal.fire(
+                    'Created!',
+                    'Your question has been Created.',
+                    'success'
+                );
+                
+
+            })
+
+        }else{
+        
+            if(title.value==""){
+                valititle.textContent="Please the complete title!";
+            }
+            if(anA.value==""){
+                valiChoiA.textContent="Please the complete choice!";
+            }
+            if(anB.value==""){
+                valiChoiB.textContent="Please the complete choice!";
+            }
+            if(anC.value==""){
+                valiChoiC.textContent="Please the complete choice!";
+            }
+            if(anD.value==""){
+                valiChoiD.textContent="Please the complete choice!";
+            }
+            if(allChoicesRedio==false && allInputOnfrom){
+                Swal.fire('You forgot chooes the correct answer!')
+
+            }
+
+        }
 
     }else{
         // edit qusetions
         btn=true;
-        console.log(body)
         btnCreate.textContent="Create"
-        console.log(e.target.parentNode.id)
-        document.querySelector("#title").value=""
-        document.querySelector("#choiceA").value=""
-        document.querySelector("#choiceB").value=""
-        document.querySelector("#choiceC").value=""
-        document.querySelector("#choiceD").value=""
+        title.value=""
+        anA.value=""
+        anB.value=""
+        anC.value=""
+        anD.value=""
         if(correctAn=="A"){
             correctA.checked=false;
         }else if(correctAn=="B"){
@@ -156,9 +209,20 @@ function createQuestion(e) {
         }else if(correctAn=="D"){
             correctD.checked=false;
         }
+        
         axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
             show(screenToDisplay)
             displayQuestion();
+            correctA.checked=false;
+            correctB.checked=false;
+             correctC.checked=false;
+              correctD.checked=false
+              
+            Swal.fire(
+                'Edited!',
+                'Your question has been edited.',
+                'success'
+            );
 
         }).catch((err)=>{
             console.log(err)
@@ -167,6 +231,7 @@ function createQuestion(e) {
 }
 // edit qusetions
 function editQuestionElement(e){
+   
     e.preventDefault();
 
     console.log(e.target.parentNode.id);
@@ -195,6 +260,7 @@ function editQuestionElement(e){
             }else if(correctD.value==data.correctAnswer){
                 correctD.checked=true
             }
+           
             }
         }
        

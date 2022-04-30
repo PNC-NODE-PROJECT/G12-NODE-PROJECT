@@ -103,10 +103,19 @@
  
  .form-group .correct {
      width: 5%;
+    
  }
  
  .form-group .as {
+     padding: 0.3rem;
      width: 84%;
+ }
+ #title-quiz{
+    padding: 0.3rem;
+
+ }
+ section #title{
+    padding: 0.3rem;
  }
  /* --------------------SIGN IN / SIGN UP ----------------*/
  
@@ -216,7 +225,6 @@
  .container {
      box-sizing: border-box;
      padding-bottom: 1px;
-     background: #fff;
  }
  
  .b-radius {
@@ -330,6 +338,11 @@
  .bg-sm-none {
      background: #fff;
      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+ }
+ .validationchoice{
+     margin-left: 4rem;
+     margin-top: -1rem;
+     
  }
  
  @media (max-width: 768px) {
