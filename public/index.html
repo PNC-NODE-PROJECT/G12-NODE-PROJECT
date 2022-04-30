@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -17,11 +18,11 @@
         <form class=" w-75 m-auto">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="email_sign_in" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control" id="password_sign_in">
             </div>
             <button type="submit" id="sign-in" class="btn w-100 btn-primary">Sign In</button>
             <p class="w-100 text-center mt-3 go-sign-up">Sign Up</p>
@@ -33,7 +34,7 @@
         <form class=" w-75 m-auto">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="email_sign_up" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">User Name</label>
@@ -41,11 +42,11 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control" id="password_sign_up">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="exampleCheck">Confirm Password</label>
-                <input type="password" class="form-control" id="exampleCheck">
+                <input type="password" class="form-control" id="pass_confirm">
             </div>
             <button type="submit" id="sign-up" class="btn w-100 btn-primary">Sign Up</button>
             <p class="w-100 text-center mt-3 go-sign-in">Sign In</p>

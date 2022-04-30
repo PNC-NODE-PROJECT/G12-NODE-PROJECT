@@ -64,6 +64,7 @@
  ul li a {
      text-decoration: none;
      font-size: 20px;
+     color: #2196F3;
  }
  
  ul li:hover {
@@ -222,7 +223,7 @@
  .displayQuestion .edit {
      width: 5%;
      margin-right: 10px;
-     background: blue;
+     background: #2196F3;
      border-radius: 5px;
  }
  
@@ -370,12 +371,11 @@
  .bg-incorrect {
      background: rgb(222, 16, 54);
  }
- .bg-sm-none{
+ 
+ .bg-sm-none {
      background: #fff;
      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
  }
-
-
 
  @media (max-width: 768px) {
      .create-question {

@@ -78,10 +78,11 @@ function displayQuestion(quizId) {
                 editQuestion.className = "material-icons edit";
                 editQuestion.style = "font-size:30px;color:white";
                 editQuestion.textContent = "mode_edit";
-                editQuestion.addEventListener('click',editQuestionElement)
+
 
                 let iconDelete = document.createElement('i');
                 iconDelete.className = "material-icons delete";
+                console.log(question.quizzId)
                 iconDelete.id = question.quizzId;
                 iconDelete.style = "font-size:30px;color:white";
                 iconDelete.textContent = "delete";
@@ -146,81 +147,13 @@ function createQuestion(e) {
             correctAnswer: correctAn,
             quizzId: quizId
         }
-        if(btn){
-            // create question
-            axios.post(URL + "/questions/create", body).then((respone) => {
-                show(screenToDisplay)
-                displayQuestion(quizId);
-            })
-    
-        }else{
-            // edit qusetions
-            btn=true;
-            btnCreate.textContent="Create"
-            console.log(e.target.parentNode.id)
-            document.querySelector("#title").value=""
-            document.querySelector("#choiceA").value=""
-            document.querySelector("#choiceB").value=""
-            document.querySelector("#choiceC").value=""
-            document.querySelector("#choiceD").value=""
-            if(correctAn=="A"){
-                correctA.checked=false;
-            }else if(correctAn=="B"){
-                correctB.checked=false;
-            }else if(correctAn=="C"){
-                correctC.checked=false;
-            }else if(correctAn=="D"){
-                correctD.checked=false;
-            }
-            axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
-                show(screenToDisplay)
-                displayQuestion(quizId);
-    
-            }).catch((err)=>{
-                console.log(err)
-            })
-        }
+        axios.post(URL + "/questions/create", body).then((respone) => {
+            show(screenToDisplay)
+            displayQuestion(quizId);
+        })
     })
 }
 
-// edit qusetions
-function editQuestionElement(e){
-    e.preventDefault();
-
-    console.log(e.target.parentNode.id);
-    idToUdate=e.target.parentNode.id;
-    document.querySelector('.displayQuestion').style.display = 'none';
-    axios.get(URL + "/questions").then((respone) => {
-        let questions = respone.data;
-        btnCreate.textContent="Edit"
-        btn=false
-        for (let data of questions) {
-            // enter value to input on the form
-            if (data._id == e.target.parentNode.id) {
-            document.querySelector("#title").value=data.question_title
-            document.querySelector("#choiceA").value=data.answers.choiceA
-            document.querySelector("#choiceB").value=data.answers.choiceB
-            document.querySelector("#choiceC").value=data.answers.choiceC
-            document.querySelector("#choiceD").value=data.answers.choiceD  
-            // Enter value to radio
-            if(correctA.value==data.correctAnswer){
-                correctA.checked=true
-            }else if(correctB.value==data.correctAnswer){
-                correctB.checked=true
-            }else if(correctC.value==data.correctAnswer){
-                correctC.checked=true
-            }else if(correctD.value==data.correctAnswer){
-                correctD.checked=true
-            }
-            }
-        }
-       
-    })
-  
-}
-
-let idToUdate = "";
-let btn=true;
 function deleteQuestion(e) {
     let id = e.target.parentElement.id;
     let quizId = e.target.id
