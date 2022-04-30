@@ -26,7 +26,26 @@
      cursor: pointer;
      padding: -10px
  }
- 
+
+.control-img img {
+    width: 200px;
+    height:150px;
+}
+
+.btn-link{
+    font-size: 30px;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+} 
+.contain-link{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
  ul {
      display: flex;
      margin-top: 1%;
@@ -105,7 +124,15 @@
  }
  
  .form-group .as {
+     
      width: 84%;
+     padding: 5px 10px;
+     border-radius: 3px;
+ }
+ #title{
+     padding: 10px;
+     margin: auto;
+     border-radius: 4px;
  }
  /* --------------------SIGN IN / SIGN UP ----------------*/
  
@@ -212,11 +239,6 @@
      background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
  }
  
- .container {
-     box-sizing: border-box;
-     padding-bottom: 1px;
- }
- 
  .b-radius {
      border-radius: 10px;
  }
@@ -254,7 +276,18 @@
      cursor: pointer;
      box-sizing: border-box;
  }
- 
+ #back-from-show-correction{
+     font-size: 20px;
+     width: 100px;
+     text-align: center;
+     padding: 5px 15px ;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+
+ #back-from-show-correction:hover{
+     background: rgb(251, 251, 249);
+ }
  .quiz-title {
      font-size: 30px;
      width: 110%;
@@ -269,10 +302,23 @@
      box-sizing: border-box;
  }
  
+
+
  .col:hover {
      background: rgb(185, 182, 182);
  }
+
  
+ #progress-bar{
+     height: 20px;
+     width: 100%;
+     background: #000;
+ }
+.index-question{
+    height: 100%;
+    background: orange;
+    width: 99%;
+}
  .answers {
      display: grid;
      grid-template-columns: auto auto;
@@ -328,6 +374,9 @@
      background: #fff;
      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
  }
+
+
+
  @media (max-width: 768px) {
      .create-question {
          width: 100%;
