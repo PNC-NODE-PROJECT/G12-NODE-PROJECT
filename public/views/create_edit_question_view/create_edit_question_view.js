@@ -12,6 +12,7 @@ let correctD = document.getElementById("correctD")
 const showCreateQuestion = document.querySelector(".show-create-question");
 const btnCreate = document.querySelector('#create');
 
+
 // Quiz dom
 const showTitleQuiz = document.querySelector(".show-title-quiz");
 const btnCreateQuiz = document.querySelector("#btn-create-quiz");
@@ -72,32 +73,36 @@ function displayQuestion(quizId) {
                 } else if (question.correctAnswer == "D") {
                     answerD.style.backgroundColor = "green"
                 }
-                let editQuestion = document.createElement('i');
-                editQuestion.src = "../../public/images/edit.png";
-                editQuestion.className = "material-icons edit";
-                editQuestion.style = "font-size:30px;color:white";
-                editQuestion.textContent = "mode_edit";
-                editQuestion.addEventListener('click',editQuestionElement)
+               
+            let editQuestion = document.createElement('i');
+            editQuestion.className = "material-icons edit";
+            editQuestion.style = "font-size:30px;color:white";
+            editQuestion.textContent = "mode_edit";
+            editQuestion.addEventListener("click", editQuestionElement);
 
-                let iconDelete = document.createElement('i');
-                iconDelete.className = "material-icons delete";
-                iconDelete.id = question.quizzId;
-                iconDelete.style = "font-size:30px;color:white";
-                iconDelete.textContent = "delete";
-                iconDelete.addEventListener("click", deleteQuestion);
 
-                card.appendChild(titleQuestion);
-                answers.appendChild(answerA);
-                answers.appendChild(answerB);
-                answers.appendChild(answerC);
-                answers.appendChild(answerD);
-                card.appendChild(answers);
-                card.appendChild(hr);
-                card.appendChild(editQuestion);
-                card.appendChild(iconDelete);
-                screenToDisplay.appendChild(card);
-            }
+            let iconDelete = document.createElement('i');
+            iconDelete.className = "material-icons delete";
+            iconDelete.id = quizId
+            iconDelete.style = "font-size:30px;color:white";
+            iconDelete.textContent = "delete";
+            iconDelete.addEventListener("click", deleteQuestion);
+
+
+            card.appendChild(titleQuestion);
+            answers.appendChild(answerA);
+            answers.appendChild(answerB);
+            answers.appendChild(answerC);
+            answers.appendChild(answerD);
+            card.appendChild(answers);
+            card.appendChild(hr);
+            card.appendChild(editQuestion);
+            card.appendChild(iconDelete);
+            screenToDisplay.appendChild(card);
+
+
         }
+     }
     })
 }
 
@@ -117,6 +122,7 @@ const saveQuiqTitle = () => {
 
 // Create answers & question
 function createQuestion(e) {
+    
     // Check correct answers
     e.preventDefault();
     let correctAn = '';
@@ -130,6 +136,9 @@ function createQuestion(e) {
         correctAn = "D";
     }
 
+    //     },
+    //     correctAnswer: correctAn
+    // }
     let path = "/quizzes";
     axios.get(path).then((response) => {
         let lastQuiz = response.data.slice(-1);
@@ -145,44 +154,146 @@ function createQuestion(e) {
             correctAnswer: correctAn,
             quizzId: quizId
         }
-        if(btn){
-            // create question
+   
+ 
+    if(btn){
+        // create question
+        let valititle=document.getElementById("validationTitle");
+        let valiChoiA=document.getElementById("validationChoiceA");
+        let valiChoiB=document.getElementById("validationChoiceB");
+        let valiChoiC=document.getElementById("validationChoiceC");
+        let valiChoiD=document.getElementById("validationChoiceD");
+        valititle.textContent=""
+        valiChoiA.textContent=""
+        valiChoiB.textContent=""
+        valiChoiC.textContent=""
+        valiChoiD.textContent=""
+        
+        let allChoicesRedio=correctA.checked!=false || correctB.checked!=false || correctC.checked!=false || correctD.checked!=false ;
+        let allInputOnfrom=title.value!="" && anA.value!="" && anB.value!="" && anC.value!="" && anD.value!="";
+        if( allInputOnfrom && allChoicesRedio){ 
             axios.post(URL + "/questions/create", body).then((respone) => {
                 show(screenToDisplay)
-                displayQuestion(quizId);
-            })
-    
-        }else{
-            // edit qusetions
-            btn=true;
-            btnCreate.textContent="Create"
-            document.querySelector("#title").value=""
-            document.querySelector("#choiceA").value=""
-            document.querySelector("#choiceB").value=""
-            document.querySelector("#choiceC").value=""
-            document.querySelector("#choiceD").value=""
-            if(correctAn=="A"){
-                correctA.checked=false;
-            }else if(correctAn=="B"){
+                title.value=""
+                anA.value=""
+                anB.value=""
+                anC.value=""
+                anD.value=""
+               correctA.checked=false;
                 correctB.checked=false;
-            }else if(correctAn=="C"){
-                correctC.checked=false;
-            }else if(correctAn=="D"){
-                correctD.checked=false;
-            }
-            axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
-                show(screenToDisplay)
-                displayQuestion(quizId);
-    
-            }).catch((err)=>{
-                console.log(err)
+                 correctC.checked=false;
+                  correctD.checked=false
+                  displayQuestion(quizId);
+               
+                Swal.fire(
+                    'Created!',
+                    'Your question has been Created.',
+                    'success'
+                );
+                
+
             })
+
+        }else{
+        
+            if(title.value==""){
+                valititle.textContent="Please the complete title!";
+            }
+            if(anA.value==""){
+                valiChoiA.textContent="Please the complete choice!";
+            }
+            if(anB.value==""){
+                valiChoiB.textContent="Please the complete choice!";
+            }
+            if(anC.value==""){
+                valiChoiC.textContent="Please the complete choice!";
+            }
+            if(anD.value==""){
+                valiChoiD.textContent="Please the complete choice!";
+            }
+            if(allChoicesRedio==false && allInputOnfrom){
+                Swal.fire('You forgot chooes the correct answer!')
+
+            }
+
         }
+
+    }else{
+        // edit qusetions
+        btn=true;
+        btnCreate.textContent="Create"
+        title.value=""
+        anA.value=""
+        anB.value=""
+        anC.value=""
+        anD.value=""
+        if(correctAn=="A"){
+            correctA.checked=false;
+        }else if(correctAn=="B"){
+            correctB.checked=false;
+        }else if(correctAn=="C"){
+            correctC.checked=false;
+        }else if(correctAn=="D"){
+            correctD.checked=false;
+        }
+        
+        axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
+            show(screenToDisplay)
+            displayQuestion(quizId);
+            correctA.checked=false;
+            correctB.checked=false;
+             correctC.checked=false;
+              correctD.checked=false
+              
+            Swal.fire(
+                'Edited!',
+                'Your question has been edited.',
+                'success'
+            );
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+   
+//         if(btn){
+//             // create question
+//             axios.post(URL + "/questions/create", body).then((respone) => {
+//                 show(screenToDisplay)
+//                 displayQuestion(quizId);
+//             })
+    
+//         }else{
+//             // edit qusetions
+//             btn=true;
+//             btnCreate.textContent="Create"
+//             document.querySelector("#title").value=""
+//             document.querySelector("#choiceA").value=""
+//             document.querySelector("#choiceB").value=""
+//             document.querySelector("#choiceC").value=""
+//             document.querySelector("#choiceD").value=""
+//             if(correctAn=="A"){
+//                 correctA.checked=false;
+//             }else if(correctAn=="B"){
+//                 correctB.checked=false;
+//             }else if(correctAn=="C"){
+//                 correctC.checked=false;
+//             }else if(correctAn=="D"){
+//                 correctD.checked=false;
+//             }
+//             axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
+//                 show(screenToDisplay)
+//                 displayQuestion(quizId);
+    
+//             }).catch((err)=>{
+//                 console.log(err)
+//             })
+//         }
     })
 }
 
 // edit qusetions
 function editQuestionElement(e){
+   
     e.preventDefault();
     idToUdate=e.target.parentNode.id;
     document.querySelector('.displayQuestion').style.display = 'none';
@@ -208,6 +319,7 @@ function editQuestionElement(e){
             }else if(correctD.value==data.correctAnswer){
                 correctD.checked=true
             }
+           
             }
         }
        
@@ -217,6 +329,7 @@ function editQuestionElement(e){
 
 let idToUdate = "";
 let btn=true;
+
 function deleteQuestion(e) {
     let id = e.target.parentElement.id;
     let quizId = e.target.id
@@ -227,6 +340,7 @@ function deleteQuestion(e) {
             'Your question has been deleted.',
             'success'
         );
+        console.log(quizId)
         displayQuestion(quizId);
     })
 }

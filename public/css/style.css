@@ -141,10 +141,11 @@ body {
  
  .form-group .correct {
      width: 5%;
+    
  }
  
  .form-group .as {
-     
+     padding: 0.3rem;
      width: 84%;
      padding: 5px 10px;
      border-radius: 3px;
@@ -153,6 +154,13 @@ body {
      padding: 10px;
      margin: auto;
      border-radius: 4px;
+ }
+ #title-quiz{
+    padding: 0.3rem;
+
+ }
+ section #title{
+    padding: 0.3rem;
  }
  /* --------------------SIGN IN / SIGN UP ----------------*/
  
@@ -240,6 +248,12 @@ body {
      margin-left: 18px;
      background: red;
      border-radius: 5px;
+ }
+ 
+ 
+ .container {
+     box-sizing: border-box;
+     padding-bottom: 1px;
  }
  
  .b-radius {
@@ -377,6 +391,12 @@ color: white;
      background: #fff;
      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
  }
+ .validationchoice{
+     margin-left: 4rem;
+     margin-top: -1rem;
+     
+ }
+ 
 
  @media (max-width: 768px) {
      .create-question {

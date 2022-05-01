@@ -34,18 +34,67 @@ function signUp(e) {
         email: emailSignup.value,
         password: passwordSignup.value,
     };
-    console.log(users);
-    if (users != null && passwordSignup.value === passwordConfirm.value) {
-        axios.post(URL + "/users/addUser", users)
-            .then((response) => {
-                console.log(response.data);
-            });
-    } else {
-        confirm("You can't not sign up account ?")
+
+    
+    let valiEmail=document.getElementById("validationEmail");
+    let valiUser=document.getElementById("validationUsername");
+    let valiPss=document.getElementById("validationPassword");
+    let valiConPass=document.getElementById("validationConPass");
+    valiEmail.textContent=""
+    valiUser.textContent=""
+    valiPss.textContent=""
+    valiConPass.textContent=""
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if ((userName.value!="" && passwordSignup.value!="" && passwordConfirm.value!="" && emailSignup.value!="")) {
+            if (passwordSignup.value === passwordConfirm.value) {
+            } 
+             if(emailSignup.value.match(validRegex)){
+                if (passwordSignup.value === passwordConfirm.value) {
+                    axios.post(URL + "/users/addUser", users)
+                    emailSignup.value="";
+                    passwordSignup.value="";
+                    userName.value="";
+                    passwordConfirm.value=""
+                        Swal.fire(
+                            'Good job!',
+                            'Sign up success!',
+                            'success'
+                            )
+                            
+                        .then((response) => {
+                            console.log(response.data);
+                        });
+                    }
+                } 
+    } else{
+        
+            if(userName.value==""){
+                valiUser.textContent="Please complete your username!";
+            }
+            if(emailSignup.value==""){
+                valiEmail.textContent="Please complete your email!";
+            }
+            if(passwordSignup.value==""){
+                valiPss.textContent="Please complete your password!";
+            }
+            if(passwordConfirm.value==""){
+                valiConPass.textContent="Please complete your password confirm!";
+            }
+
+        }
+    // }
+    if(!emailSignup.value.match(validRegex) && emailSignup.value!=""){     
+        valiEmail.textContent="Please put '@' in your email!";
     }
+     if (!(passwordSignup.value === passwordConfirm.value)) {
+        valiConPass.textContent="You confirm password is incorrect!"; 
+           }
+  
 };
 
-function signIn(e) {}
+function signIn(e) {
+
+}
 
 // Get user from form
 const emailSignup = document.querySelector('#email_sign_up');
