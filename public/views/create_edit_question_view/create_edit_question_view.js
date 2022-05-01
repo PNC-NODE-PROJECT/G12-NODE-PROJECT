@@ -59,8 +59,7 @@ function displayQuestion(quizId) {
                 let answerD = document.createElement('p');
                 answerD.className = "answerDisplay";
                 answerD.textContent = question.answers.choiceD;
-
-
+                
                 let correctAn = document.createElement('p');
                 correctAn.textContent = question.correctAnswer;
                 let hr = document.createElement('hr')
