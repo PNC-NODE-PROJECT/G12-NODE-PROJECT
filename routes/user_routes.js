@@ -61,6 +61,24 @@ router.post('/login', (req, res) => {
         })
 })
 
+// user signup
+router.post('/signup', (req, res) => {
+    let userData = req.body;
+    let isValid = false;
+    userModel.find(userData)
+        // .populate("role")
+        .then((result) => {
+            console.log(result);
+            if (result.length > 0) {
+                isValid = true;
+                res.send(isValid);
+            } else {
+                isValid = false;
+                res.send(isValid);
+            }
+        })
+})
+
 
 
 // // update

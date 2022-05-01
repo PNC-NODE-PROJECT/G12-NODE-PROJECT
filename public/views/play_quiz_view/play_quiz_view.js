@@ -88,6 +88,7 @@ const hideGoodBadAnswers = () => {
 const showScore = (totalScore) => {
     let score = document.querySelector('.score');
     score.textContent = (totalScore* 100).toFixed()  + '%';
+    
 }
 
 
