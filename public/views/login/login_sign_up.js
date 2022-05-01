@@ -4,6 +4,7 @@ const login = document.querySelector('#sign-in');
 const goToSignUp = document.querySelector('.go-sign-up');
 const goToSignIn = document.querySelector('.go-sign-in');
 const sign_up = document.querySelector('#sign-up');
+const containHome = document.querySelector('.contain-home');
 const URL = "http://localhost:80"
     // Fucntion show elemet
 const show = (element) => {
@@ -16,7 +17,7 @@ const hide = (element) => {
 }
 
 hide(containSignUp)
-
+hide(containHome);
 // Function to hide sign up , show login and  hide login show sign up
 const showLogin = () => {
     hide(containSignUp);
