@@ -21,6 +21,18 @@ router.get('/', (req, res) => {
 
             });
     })
+
+router.get('/user/:id', (req, res) => {
+    let id = req.params.id;
+        userModel.find({_id:id})
+            .then((result) => {
+                res.send(result);
+            })
+            .catch((error) => {
+                res.send(error);
+
+            });
+    })
     // add to user
 router.post('/addUser', (req, res) => {
     let element = req.body;
@@ -43,26 +55,19 @@ router.delete("/deleteuser/:id", (req, res) => {
             console.log(error);
             res.send(error);
         });
+});
+// user login 
+router.post('/login', (req, res) => {
+    let userData = req.body;
+    let userId = null;
+    userModel.find(userData)
+        .then((result) => {
+            if (result.length > 0) {
+                userId = result[0]._id;
+            } 
+            res.send(userId);
+        })
 })
 
-
-
-// // update
-// router.put("/updateUser/:id", (req, res) => {
-//   let data = req.body
-//   console.log({_id: req.params.id},
-//     { username: req.body.username},
-//     { email:req.body.email},
-//     { password: req.body.password})
-//   userModel.updateOne({_id: req.params.id},
-//     data)
-//   .then((result)=>{
-//       res.send(result);
-//   })
-//   .catch((error)=>{
-//       console.log(error);
-//       res.send(error);
-//   });
-// });
 
 module.exports = router
