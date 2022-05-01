@@ -14,8 +14,10 @@
 <body>
     <nav>
         <ul>
-            <a href="../../index.html"><img src="../../images/quiz_logo.png" /></a>
-            <h2>Quiz App</h2>
+            <a href="../../index.html">
+                <img src="../../images/logo2.png" />
+            </a>
+            <h3>Quiz App</h3>
         </ul>
         <ul>
             <li class="active"><a href="edit.html">Edit quiz</a></li>
@@ -24,8 +26,10 @@
     </nav>
     <div class="container">
         <div id="dom-show-quiz" >
+            <h3 class="title-quiz">List of Quizzes</h3>
+            <button class="btn-find-quiz ">My Quiz</button>
             <div class="row grid  gap-2" id="quiz">
-
+                
             </div>
         </div>
         <div class="contain-question">
@@ -42,7 +46,7 @@
             </div>
         </div>
         <div id="no-data" class="container">
-            <span class="back-from-noquestion bg-secondary text-white">Back</span>
+            <span class="back-from-noquestion">Back</span>
             <br>
             <div class="contain-img">
                 <img src="../../images/no-question.png" alt="">
@@ -51,19 +55,20 @@
         
     </div>
     <div class="container show-score mt-5">
-        <button class = "b-radius borer-1 px-3 py-1 border-success" id="btn-good-bad-answer">Show Corrections</button>
+        <button class = "px-3 py-1 border-success" id="btn-good-bad-answer">Show Corrections</button>
         <h1 class = "text-center m-auto ">Your score is:</h1>
         <h1 class = "score m-auto text-center w-auto"> 90% </h1>
 
         <div class="btn-send w-100  d-flex justify-content-center">
-            <button class = "b-radius borer-1 m-3 border-success px-4 py-2"id="cancel">Cancel</button>
-            <button class = "b-radius borer-1 m-3 border-success px-4 py-2" id="play-again">Play again</button>
+            <button class = " px-4 py-2"id="cancel">Cancel</button>
+            <button class = " px-4 py-2" id="play-again">Play again</button>
         </div>
     </div>
     <div class="container " id="show-good-bad-answers">
         <div class="d-flex  justify-content-between mt-4 mb-4">
-            <span id="back-from-show-correction" class="text-white bg-secondary">Back</span>
-            <h2 class="my-3bg-danger">Corrections of this Quiz</h2>
+            <p id="back-from-show-correction" class="back-btn-correction">Back<p>
+            
+            <h2 class="list-of-orrection">Corrections of this Quiz</h2>
         </div>
     </div>
     <script src="play_quiz_view.js" type=""></script>

@@ -16,6 +16,7 @@ const quizSchema = new mongoose.Schema({
     }
 });
 
+
   // Create the Model for the Tasks collection from Schema
   
   const quiz =  mongoose.model("quizzes",quizSchema);
