@@ -43,6 +43,22 @@ router.delete("/deleteuser/:id", (req, res) => {
             console.log(error);
             res.send(error);
         });
+});
+// user login 
+router.post('/login', (req, res) => {
+    let userData = req.body;
+    let isValid = false;
+    userModel.find(userData)
+        // .populate("role")
+        .then((result) => {
+            if (result.length > 0) {
+                isValid = true;
+                res.send(isValid);
+            } else {
+                isValid = false;
+                res.send(isValid);
+            }
+        })
 })
 
 
