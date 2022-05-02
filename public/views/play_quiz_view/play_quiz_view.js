@@ -79,6 +79,7 @@ const showMyQuiz = (datas) => {
     divMyquestion.className="row grid  gap-2";
     for(let data of datas) {
         let controlMyQuestion = document.createElement('div');
+        controlMyQuestion.className = "control-one-quiz"
         divMyquestion.appendChild(controlMyQuestion);
 
         let title = document.createElement('div');

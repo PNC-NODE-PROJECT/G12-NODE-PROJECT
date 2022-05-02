@@ -84,7 +84,7 @@ function signUp(e) {
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
    
     if ((userName.value != "" && passwordSignup.value != "" && passwordConfirm.value != "" && emailSignup.value != "")) {
-        if (passwordSignup.value === passwordConfirm.value) {}
+        if (passwordSignup.value === passwordConfirm.value) {
         if (emailSignup.value.match(validRegex)) {
             if (passwordSignup.value === passwordConfirm.value) {
                 axios.post(URL + "/users/addUser", users)
@@ -140,7 +140,7 @@ function signUp(e) {
                     }
                 });
 
-                
+            }
             }
         }
     } else {
