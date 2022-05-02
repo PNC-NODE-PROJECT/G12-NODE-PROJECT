@@ -166,7 +166,22 @@ const hideGoodBadAnswers = () => {
 
 const showScore = (totalScore) => {
     let score = document.querySelector('.score');
-    score.textContent = (totalScore* 100).toFixed()  + '%';
+    let totalScores = (totalScore * 100).toFixed()   + '%';
+    score.textContent = totalScores;
+
+   
+    let getUserId = getDataFromLocalStorage("userId")
+    axios.get("/users/user/" + getUserId).then((response) => {
+        let email = {
+            "from": "raths8546@gmail.com",
+            "to": response.data[0].email,
+             "subject": "scores",
+              "content": "Your scores is:" + totalScores + "http://192.168.173.29:80/views/play_quiz_view/play_quiz_view.html"
+            }
+            console.log(response.data[0].email);
+            axios.post('/email/Email', email)
+        
+    })
     
 }
 
@@ -274,6 +289,39 @@ const showGoodBadAnswers = () => {
     }
 }
 
+
+
+
+
+
+function getPDF() {
+    var doc = new jsPDF();
+    doc.text(80, 20, 'Thank you!')
+    doc.text(78, 28, 'Congratlation!')
+    var elementHandler = {
+    '#show-score': function (element, renderer) {
+        return true;
+    }
+   
+    };
+    var source = window.document.getElementById("show-score");   ;
+
+    doc.fromHTML(
+        source,
+        10,
+        40,
+        {
+        'width': 111,'elementHandlers': elementHandler
+        });
+    doc.text(45, 125, 'This is client-side Javascript, pumping out a PDF.');
+
+    
+    doc.save('Test.pdf');
+
+    
+}
+
+
 // Fucntion check to delete and edit quiz
 const deleteAndEditQuiz = (e) => {
     e.preventDefault() 
@@ -344,4 +392,5 @@ backFromNoquestion.addEventListener('click', (event) =>{
     hide(noData);
     show(domShowQuiz);
 });
+btnPlayAgain.addEventListener('click', getPDF);
 

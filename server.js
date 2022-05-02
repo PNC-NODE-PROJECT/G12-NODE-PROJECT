@@ -25,6 +25,7 @@ let usersRouter = require('./routes/user_routes'); //call usersRouter
 let quizzRouter = require('./routes/quiz_routes'); //call quizRouter
 let questionRouter = require('./routes/question_routes'); //call questionRouter
 let scoreRouter = require('./routes/store_score_routes'); //call scoreRouter
+let emailRouter = require('./routes/sentEmail'); //call email Router
 
 
 
@@ -33,3 +34,5 @@ app.use('/users', usersRouter) //use userRouter
 app.use('/quizzes', quizzRouter) //use quizRouter
 app.use('/questions', questionRouter) //use questionRouter
 app.use('/scores', scoreRouter) //use scoreRouter
+app.use('/email', emailRouter) //use send email Router
+
