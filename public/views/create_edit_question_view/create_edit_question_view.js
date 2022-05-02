@@ -109,15 +109,30 @@ function displayQuestion(quizId) {
 const saveQuiqTitle = () => {
     let quizTitle = {
         title: domTitleQUestion.value,
+        userID: getDataFromLocalStorage("userId")
     }
-    axios.post('/quizzes/addQuiz', quizTitle)
-        .then((response) => {
-            hide(showTitleQuiz)
-            show(showCreateQuestion)
+    if(domTitleQUestion.value!=""){
+        axios.post('/quizzes/addQuiz', quizTitle)
+            .then((response) => {
+                hide(showTitleQuiz)
+                show(showCreateQuestion)
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+              )
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Can not create!',
+            text: 'You forgot completed title of quizzes',
         })
-        .catch((error) => {
-            console.log(error)
-        })
+    }
 }
 
 // Create answers & question
@@ -254,40 +269,7 @@ function createQuestion(e) {
             console.log(err)
         })
     }
-   
-//         if(btn){
-//             // create question
-//             axios.post(URL + "/questions/create", body).then((respone) => {
-//                 show(screenToDisplay)
-//                 displayQuestion(quizId);
-//             })
-    
-//         }else{
-//             // edit qusetions
-//             btn=true;
-//             btnCreate.textContent="Create"
-//             document.querySelector("#title").value=""
-//             document.querySelector("#choiceA").value=""
-//             document.querySelector("#choiceB").value=""
-//             document.querySelector("#choiceC").value=""
-//             document.querySelector("#choiceD").value=""
-//             if(correctAn=="A"){
-//                 correctA.checked=false;
-//             }else if(correctAn=="B"){
-//                 correctB.checked=false;
-//             }else if(correctAn=="C"){
-//                 correctC.checked=false;
-//             }else if(correctAn=="D"){
-//                 correctD.checked=false;
-//             }
-//             axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
-//                 show(screenToDisplay)
-//                 displayQuestion(quizId);
-    
-//             }).catch((err)=>{
-//                 console.log(err)
-//             })
-//         }
+
     })
 }
 
@@ -327,6 +309,20 @@ function editQuestionElement(e){
   
 }
 
+function getDataFromLocalStorage (key) {
+    let data = localStorage.getItem(key);
+    return data
+}
+
+
+let showUserName = document.querySelector(".user-name");
+let getUserId = getDataFromLocalStorage("userId")
+axios.get("/users/user/" + getUserId).then((response) => {
+    showUserName.textContent = response.data[0].username;
+})
+
+
+
 let idToUdate = "";
 let btn=true;
 
@@ -340,7 +336,6 @@ function deleteQuestion(e) {
             'Your question has been deleted.',
             'success'
         );
-        console.log(quizId)
         displayQuestion(quizId);
     })
 }

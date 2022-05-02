@@ -16,7 +16,6 @@ const hide = (element) => {
     element.style.display = 'none';
 }
 
-
 hide(containSignUp);
 hide(containHome);
 // Function to hide sign up , show login and  hide login show sign up
@@ -33,6 +32,7 @@ const loginSuccess = () => {
     hide(containSignUp);
     hide(containSignIn);
 }
+
 const saveDataToLocalStorage = (key, value) => {
     localStorage.setItem(key, value);
 }
@@ -55,10 +55,8 @@ const showUser = () => {
         let userDatas = response.data;
         for (let user of userDatas){
             let hasUser = user._id
-            console.log(hasUser == userId);
             if (userId == hasUser){
                 axios.get("/users/user/" + userId).then((response) => {
-                console.log(response.data[0].username);
                 showUserName.textContent = response.data[0].username;
                 loginSuccess();
             })
@@ -84,6 +82,7 @@ function signUp(e) {
     valiPss.textContent = ""
     valiConPass.textContent = ""
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+   
     if ((userName.value != "" && passwordSignup.value != "" && passwordConfirm.value != "" && emailSignup.value != "")) {
         if (passwordSignup.value === passwordConfirm.value) {}
         if (emailSignup.value.match(validRegex)) {
@@ -109,6 +108,39 @@ function signUp(e) {
                     let userId = result.data.slice(-1)[0]._id;
                     saveDataToLocalStorage("userId", userId);
                 })
+                let dataOfUsers = { email: emailSignup.value, password: passwordSignup.value };
+                axios.post(URL + "/users/signup", dataOfUsers)
+                .then((response) => {
+                    console.log(response.data);
+                    if (response.data==false) {
+                        console.log("Login successful !!")
+
+                            axios.post(URL + "/users/addUser", users)
+        
+                            .then((result => {
+                                emailSignup.value = "";
+                                passwordSignup.value = "";
+                                userName.value = "";
+                                passwordConfirm.value = ""
+                                Swal.fire(
+                                    'Good job!',
+                                    'Sign up success!',
+                                    'success'
+                                )
+                            }))
+                            showLogin()
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Can not create',
+                            text: 'This account already created!',
+                            
+                          })
+                        
+                    }
+                });
+
+                
             }
         }
     } else {
@@ -138,25 +170,43 @@ function signUp(e) {
 
 function signIn(e) {
     e.preventDefault();
-    const emailSignin = document.querySelector('#email_sign_in').value;
-    const passwordSignin = document.querySelector('#password_sign_in').value;
+    let emailSignin = document.querySelector('#email_sign_in').value;
+    let passwordSignin = document.querySelector('#password_sign_in').value;
     let dataOfUsers = { email: emailSignin, password: passwordSignin };
+    let valiEmailLogin = document.getElementById("validationEmailLogin");
+    let valiUserLogin = document.getElementById("validationPasswordLogin");
+    let validRegexs = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    valiEmailLogin.textContent =""
+    valiUserLogin.textContent =""
     
-    axios.post(URL + "/users/login", dataOfUsers)
-    .then((response) => {
-        let userId = response.data;
-        if (userId) {
-                saveDataToLocalStorage("userId", userId);
-                showUser()
-            } else {
-                console.log("Please !! Checked your password and try again !!")
-            }
-        });
-        
+    if (emailSignin != "" && passwordSignin != ""){
+        axios.post(URL + "/users/login", dataOfUsers)
+        .then((response) => {
+            let userId = response.data;
+            if (userId) {
+                    saveDataToLocalStorage("userId", userId);
+                    showUser()
+                } else {
+                    console.log("Please !! Checked your password and try again !!")
+                }
+            });
+    }else{
+
+        if (emailSignin== "") {
+            valiEmailLogin.textContent = "Please complete your email!";
+        }
+        if (passwordSignin == "") {
+            valiUserLogin.textContent = "Please complete your password!";
+        }
+
+    }
+    if (!emailSignin.match(validRegexs) && emailSignin!= "") {
+        valiEmailLogin.textContent = "Please put '@' in your email!";
     }
 
+}
+    
 const btnLogOut = document.querySelector('#log-out');
-
 // Get user from form
 const emailSignup = document.querySelector('#email_sign_up');
 const passwordSignup = document.querySelector('#password_sign_up')
@@ -166,5 +216,4 @@ goToSignUp.addEventListener("click", showSignUp);
 goToSignIn.addEventListener('click', showLogin);
 sign_up.addEventListener("click", signUp);
 login.addEventListener("click", signIn);
-
 btnLogOut.addEventListener("click", userLogOut)

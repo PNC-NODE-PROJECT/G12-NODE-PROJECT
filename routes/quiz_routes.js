@@ -60,6 +60,20 @@ router.get('/getUserOfQuiz/:id', (req, res)=>{
         res.send(error);
   
     });
-  })
+})
+router.put("/update/:id", (req, res) => {
+    let data = req.body
+    quizModel.updateOne({_id: req.params.id},data)
+    .then((result)=>{
+        res.send(result);
+    })
+    .catch((error)=>{
+        console.log(error);
+        res.send(error);
+    });
+  });
+
+
+
 
 module.exports = router

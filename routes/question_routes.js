@@ -49,18 +49,7 @@ router.delete("/delete/:id", (req, res)=>{
   // update
 router.put("/updateQuestionData/:id", (req, res) => {
     let data = req.body
-    console.log({_id: req.params.id},
-      { question_title: req.body.question_title},
-      { answers:{
-          choiceA: req.body.answers.choiceA,
-          choiceB: req.body.answers.choiceB,
-          choiceC: req.body.answers.choiceC,
-          choiceD: req.body.answers.choiceD
-      }},
-      { correctAnswer: req.body.correctAnswer},
-      {quiz_id: req.body.quiz_id}
-      )
-      questionModel.updateOne({_id: req.params.id},data)
+    questionModel.updateOne({_id: req.params.id},data)
     .then((result)=>{
         res.send(result);
     })
