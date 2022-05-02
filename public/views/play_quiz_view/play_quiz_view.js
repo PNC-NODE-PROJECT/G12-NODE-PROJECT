@@ -295,7 +295,7 @@ const showGoodBadAnswers = () => {
 function getPDF() {
     var doc = new jsPDF();
     doc.text(80, 20, 'Thank you!')
-    doc.text(78, 28, 'Congratlation!')
+ 
     var elementHandler = {
     '#show-score': function (element, renderer) {
         return true;
