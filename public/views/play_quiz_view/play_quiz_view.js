@@ -118,7 +118,7 @@ const showMyQuiz = (datas) => {
         controlMyQuestion.appendChild(title);
 
         let controlBtn = document.createElement('div');
-        controlBtn.className = "d-flex";
+        controlBtn.className = "d-flex btn-myquiz";
         let btnDelete = document.createElement('button');
         let btnEdit = document.createElement('button');
 
@@ -339,7 +339,7 @@ const showGoodBadAnswers = () => {
 function getPDF() {
     var doc = new jsPDF();
     doc.text(80, 20, 'Thank you!')
-    doc.text(78, 28, 'Congratlation!')
+ 
     var elementHandler = {
     '#show-score': function (element, renderer) {
         return true;

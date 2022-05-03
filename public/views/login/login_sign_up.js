@@ -85,65 +85,66 @@ function signUp(e) {
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
    
     if ((userName.value != "" && passwordSignup.value != "" && passwordConfirm.value != "" && emailSignup.value != "")) {
-        if (passwordSignup.value === passwordConfirm.value) {
-        if (emailSignup.value.match(validRegex)) {
-            if (passwordSignup.value === passwordConfirm.value) {
-                axios.post(URL + "/users/addUser", users)
-                .then(result => {
-                    emailSignup.value = "";
-                    passwordSignup.value = "";
-                    userName.value = "";
-                    passwordConfirm.value = ""
-                    Swal.fire(
-                        'Good job!',
-                        'Sign up success!',
-                        'success'
-                        )
-                        showUser()
+        // if (passwordSignup.value === passwordConfirm.value) {
+            if (emailSignup.value.match(validRegex)) {
+                if (passwordSignup.value === passwordConfirm.value) {
+                    // axios.post(URL + "/users/addUser", users)
+                    // .then(result => {
+                    //     emailSignup.value = "";
+                    //     passwordSignup.value = "";
+                    //     userName.value = "";
+                    //     passwordConfirm.value = ""
+                    //     // Swal.fire(
+                    //     //     'Good job!',
+                    //     //     'Sign up success!',
+                    //     //     'success'
+                    //     //     )
+                    //         showUser()
+                    //     })
+                    //     .catch(error =>{
+                    //         console.log(error)
+                    // })
+                    axios.get(URL + "/users/")
+                    .then(result => {
+                        let userId = result.data.slice(-1)[0]._id;
+                        saveDataToLocalStorage("userId", userId);
                     })
-                    .catch(error =>{
-                        console.log(error)
-                })
-                axios.get(URL + "/users/")
-                .then(result => {
-                    let userId = result.data.slice(-1)[0]._id;
-                    saveDataToLocalStorage("userId", userId);
-                })
-                let dataOfUsers = { email: emailSignup.value, password: passwordSignup.value };
-                axios.post(URL + "/users/signup", dataOfUsers)
-                .then((response) => {
-                    console.log(response.data);
-                    if (response.data==false) {
-                        console.log("Login successful !!")
+                    let dataOfUsers = { email: emailSignup.value, password: passwordSignup.value };
+                    axios.post(URL + "/users/signup", dataOfUsers)
+                    .then((response) => {
+                        console.log(response.data);
+                        if (response.data==false) {
+                           
 
-                            axios.post(URL + "/users/addUser", users)
-        
-                            .then((result => {
-                                emailSignup.value = "";
-                                passwordSignup.value = "";
-                                userName.value = "";
-                                passwordConfirm.value = ""
-                                Swal.fire(
-                                    'Good job!',
-                                    'Sign up success!',
-                                    'success'
-                                )
-                            }))
-                            showLogin()
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Can not create',
-                            text: 'This account already created!',
+                                axios.post(URL + "/users/addUser", users)
+            
+                                .then((result => {
+                                    emailSignup.value = "";
+                                    passwordSignup.value = "";
+                                    userName.value = "";
+                                    passwordConfirm.value = ""
+                                    Swal.fire(
+                                        'Good job!',
+                                        'Sign up success!',
+                                        'success'
+                                    )
+                                    showLogin()
+                                }))
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Can not create',
+                                text: 'This account already created!',
+                                
+                            })
                             
-                          })
-                        
-                    }
-                });
+                        }
+                    });
 
+                    
+                }
             }
-            }
-        }
+        // }
     } else {
 
         if (userName.value == "") {
@@ -186,9 +187,20 @@ function signIn(e) {
             let userId = response.data;
             if (userId) {
                     saveDataToLocalStorage("userId", userId);
+                    Swal.fire(
+                        'Good job!',
+                        'Login successed!',
+                        'success'
+                      )
                     showUser()
                 } else {
                     console.log("Please !! Checked your password and try again !!")
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login is not success!',
+                        text: 'Something went wrong!',
+                      
+                      })
                 }
             });
     }else{
