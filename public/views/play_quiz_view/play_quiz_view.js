@@ -9,7 +9,7 @@ const domScore = document.querySelector('.show-score');
 const containQuestion = document.querySelector(".contain-question");
 const noData = document.querySelector('#no-data');
 const goodBadAnswer = document.querySelector('#btn-good-bad-answer');
-const domShowGoodBadAnswers = document.querySelector('#show-good-bad-answers')
+const containGoodBadAnswers = document.querySelector('#contain-good-bad-answers')
 const backFromShowcorrectAnswer = document.querySelector('#back-from-show-correction')
 const btnCancel = document.querySelector('#cancel');
 const btnPlayAgain = document.querySelector('#play-again');
@@ -30,15 +30,10 @@ axios.get("/users/user/" + getUserId).then((response) => {
     showUserName.textContent = response.data[0].username;
 })
 
-// Local storage
-
-
-
 let quizDatas = [];
 let userChoosed = [];
 let currentQuestionIndex = 1;
 let totalScore = 0;
-// import { hide, show } from "../js/functions.js";
 const showQuiz = (datas) => {
     for(let data of datas) {
         let title = document.createElement('div');
@@ -84,6 +79,7 @@ const showMyQuiz = (datas) => {
     divMyquestion.className="row grid  gap-2";
     for(let data of datas) {
         let controlMyQuestion = document.createElement('div');
+        controlMyQuestion.className = "control-one-quiz"
         divMyquestion.appendChild(controlMyQuestion);
 
         let title = document.createElement('div');
@@ -93,7 +89,7 @@ const showMyQuiz = (datas) => {
         controlMyQuestion.appendChild(title);
 
         let controlBtn = document.createElement('div');
-        controlBtn.className = "d-flex";
+        controlBtn.className = "d-flex btn-myquiz";
         let btnDelete = document.createElement('button');
         let btnEdit = document.createElement('button');
 
@@ -165,7 +161,7 @@ const backToShowQuiz = () => {
 
 const hideGoodBadAnswers = () => {
     backToShowQuiz();
-    hide(domShowGoodBadAnswers);
+    hide(containGoodBadAnswers);
 }
 
 
@@ -232,9 +228,16 @@ const progressBar = (textContent, progressing) => {
 }
 
 const showGoodBadAnswers = () => {
-    show(domShowGoodBadAnswers)
+    show(containGoodBadAnswers)
     hide(domScore)
+    let domShowGoodBadAnswers = document.querySelector("#show-good-bad-answers");
+    domShowGoodBadAnswers.remove();
+    let newDomShowGoodBadAnswers = document.createElement('div');
+    containGoodBadAnswers.appendChild(newDomShowGoodBadAnswers);
+    newDomShowGoodBadAnswers.id = 'show-good-bad-answers'
+
     let correctAnswerIndex = 0;
+
     for (let questionData of quizDatas){
         let containOneQuestion = document.createElement('div');
         let titleQuestion = document.createElement('h3')
@@ -261,7 +264,7 @@ const showGoodBadAnswers = () => {
         containOneQuestion.appendChild(answer2);
         containOneQuestion.appendChild(answer3);
         containOneQuestion.appendChild(answer4);
-        domShowGoodBadAnswers.appendChild(containOneQuestion);
+        newDomShowGoodBadAnswers.appendChild(containOneQuestion);
 
         if(questionData.correctAnswer == "A"){
             answer1.classList.add("bg-correct") ;
@@ -375,7 +378,7 @@ const editQuiz = () => {
 
 
 // Hide pages unnesessery 
-hide(domShowGoodBadAnswers);
+hide(containGoodBadAnswers);
 hide(noData);
 hide(containQuestion);
 hide(domScore);

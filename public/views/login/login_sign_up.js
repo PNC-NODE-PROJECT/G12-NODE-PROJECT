@@ -84,25 +84,25 @@ function signUp(e) {
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
    
     if ((userName.value != "" && passwordSignup.value != "" && passwordConfirm.value != "" && emailSignup.value != "")) {
-        if (passwordSignup.value === passwordConfirm.value) {
+        // if (passwordSignup.value === passwordConfirm.value) {
             if (emailSignup.value.match(validRegex)) {
                 if (passwordSignup.value === passwordConfirm.value) {
-                    axios.post(URL + "/users/addUser", users)
-                    .then(result => {
-                        emailSignup.value = "";
-                        passwordSignup.value = "";
-                        userName.value = "";
-                        passwordConfirm.value = ""
-                        Swal.fire(
-                            'Good job!',
-                            'Sign up success!',
-                            'success'
-                            )
-                            showUser()
-                        })
-                        .catch(error =>{
-                            console.log(error)
-                    })
+                    // axios.post(URL + "/users/addUser", users)
+                    // .then(result => {
+                    //     emailSignup.value = "";
+                    //     passwordSignup.value = "";
+                    //     userName.value = "";
+                    //     passwordConfirm.value = ""
+                    //     // Swal.fire(
+                    //     //     'Good job!',
+                    //     //     'Sign up success!',
+                    //     //     'success'
+                    //     //     )
+                    //         showUser()
+                    //     })
+                    //     .catch(error =>{
+                    //         console.log(error)
+                    // })
                     axios.get(URL + "/users/")
                     .then(result => {
                         let userId = result.data.slice(-1)[0]._id;
@@ -113,7 +113,7 @@ function signUp(e) {
                     .then((response) => {
                         console.log(response.data);
                         if (response.data==false) {
-                            console.log("Login successful !!")
+                           
 
                                 axios.post(URL + "/users/addUser", users)
             
@@ -127,8 +127,8 @@ function signUp(e) {
                                         'Sign up success!',
                                         'success'
                                     )
+                                    showLogin()
                                 }))
-                                showLogin()
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -143,7 +143,7 @@ function signUp(e) {
                     
                 }
             }
-        }
+        // }
     } else {
 
         if (userName.value == "") {
