@@ -5,8 +5,6 @@ const router = express.Router()
 const scoreModel = require("../models/score_models");
 // const scoreModel = Data.score;
 
-// Define static route
-// router.use(express.static("public"));
 
 // TODO: Define dynamic routes
 // Get score data from DB

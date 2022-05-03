@@ -6,8 +6,6 @@ const router = express.Router()
 const questionModel = require("../models/question_models");
 // const questionModel = Data.question;
 
-// Define static route
-// router.use(express.static("public"));
 
 // TODO: Define dynamic routes
 // Get question data from DB
