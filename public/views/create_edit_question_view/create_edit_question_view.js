@@ -19,12 +19,19 @@ const btnCreateQuiz = document.querySelector("#btn-create-quiz");
 const screenToDisplay = document.querySelector(".displayQuestion");
 const domTitleQUestion = document.querySelector('#titleQUestion');
 // import { hide, show } from "../js/functions.js";
-const hide = (element) => {
-    element.style.display = 'none';
-}
-const show = (element) => {
-    element.style.display = 'block';
-}
+import {
+    hide, 
+    show, 
+    saveDataToLocalStorage, 
+    getDataFromLocalStorage, 
+    putUsername
+} from "../js/functions.js";
+
+let showUserName = document.querySelector(".user-name");
+let getUserId = getDataFromLocalStorage("userId");
+putUsername(getUserId, showUserName);
+
+
 
 function displayQuestion(quizId) {
     while (screenToDisplay.firstChild) {
@@ -170,7 +177,6 @@ function createQuestion(e) {
             quizzId: quizId
         }
    
- 
     if(btn){
         // create question
         let valititle=document.getElementById("validationTitle");
@@ -199,7 +205,6 @@ function createQuestion(e) {
                  correctC.checked=false;
                   correctD.checked=false
                   displayQuestion(quizId);
-               
                 Swal.fire(
                     'Created!',
                     'Your question has been Created.',
@@ -308,20 +313,6 @@ function editQuestionElement(e){
     })
   
 }
-
-function getDataFromLocalStorage (key) {
-    let data = localStorage.getItem(key);
-    return data
-}
-
-
-let showUserName = document.querySelector(".user-name");
-let getUserId = getDataFromLocalStorage("userId")
-axios.get("/users/user/" + getUserId).then((response) => {
-    showUserName.textContent = response.data[0].username;
-})
-
-
 
 let idToUdate = "";
 let btn=true;

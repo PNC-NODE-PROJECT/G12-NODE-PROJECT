@@ -23,16 +23,16 @@ router.get('/', (req, res)=>{
   });
 })
 
-// // add to Score
-// router.post('/addScore', (req, res)=>{
-//     let element =req.body;
-//     scoreModel.create(element)
-//     .then((result)=>{
-//         res.send(result);
-//     })
-//     .catch((error)=>{
-//         console.log(error);
-//     });
-//   })
+// add to Score
+router.post('/addScore', (req, res)=>{
+    let element =req.body;
+    scoreModel.create(element)
+    .then((result)=>{
+        res.send(result);
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+  })
 
 module.exports = router

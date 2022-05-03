@@ -32,7 +32,7 @@ const loginSuccess = () => {
     hide(containSignUp);
     hide(containSignIn);
 }
-
+// Local strage
 const saveDataToLocalStorage = (key, value) => {
     localStorage.setItem(key, value);
 }
@@ -40,6 +40,7 @@ const getDataFromLocalStorage = (key) => {
     let data = localStorage.getItem(key);
     return data
 }
+
 function userLogOut(){
     localStorage.removeItem("userId");
     hide(containSignUp);

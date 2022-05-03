@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <a href="../../index.html"><img src="../../images/logo2.png" /></a>
+            <h3>Quiz App</h3>
+        </ul>
+        <ul>
+            <li class="active user-name">67890</li>
+        </ul>
+    </nav>
+    <div class="container">
+        <a class="btn btn-secondary mt-2 back-from-history text-white  fs-2" href="../play_quiz_view/play_quiz_view.html">Back</a>
+        <table class="table show-history w-75 m-auto" id="show-history">
+            <thead>
+                <tr>
+                    <th scope="col">QUIZ TITLE</th>
+                    <th scope="col">RESULT</th>
+                </tr>
+            </thead>
+            <tbody id="control-scores" class="text-white">
+                <tr>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="history_view.js" type="module"></script>
+</body>
+
+</html>

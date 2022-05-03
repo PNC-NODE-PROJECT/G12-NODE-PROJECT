@@ -18,12 +18,33 @@ const domShowMyQuiz = document.querySelector("#dom-my-quiz");
 const containQuizzes = document.querySelector(".contain-quizzes");
 const showEditQuiz = document.querySelector(".show-edit-quiz");
 
-function getDataFromLocalStorage (key) {
+
+// Search 
+const searchInput = document.querySelector('.search');
+searchInput.addEventListener('keyup', function(e) {
+    let text = searchInput.value.toLowerCase();
+    let items = document.querySelectorAll('.quiz-title')
+    for(let item of items){
+        let title = item.textContent.toLowerCase();
+        if(title.indexOf(text)===-1){
+            hide(item.parentNode);
+        }else {
+            show(item.parentNode);
+        }
+    }
+})
+
+
+// Local storage
+const saveDataToLocalStorage = (key, value) => {
+    localStorage.setItem(key, value);
+}
+const getDataFromLocalStorage = (key) => {
     let data = localStorage.getItem(key);
     return data
 }
 
-
+// To show user name 
 let showUserName = document.querySelector(".user-name");
 let getUserId = getDataFromLocalStorage("userId")
 axios.get("/users/user/" + getUserId).then((response) => {
@@ -35,13 +56,20 @@ let userChoosed = [];
 let currentQuestionIndex = 1;
 let totalScore = 0;
 const showQuiz = (datas) => {
+    let domQuiz = document.querySelector('#quiz');
+    domQuiz.remove();
+    let newDomQuiz = document.createElement('div');
+    domShowQuiz.appendChild(newDomQuiz);
+    newDomQuiz.id = "quiz";
+    newDomQuiz.className = "row grid  gap-2"
     for(let data of datas) {
+        let containTitle = document.createElement('div');
         let title = document.createElement('div');
+        containTitle.appendChild(title);
         title.className = "quiz-title";
         title.id = data._id;
         title.textContent = data.title;
-        quiz.appendChild(title);
-
+        newDomQuiz.appendChild(containTitle);
     }
 }
 
@@ -66,6 +94,7 @@ const btnShowMyQuiz = document.querySelector('.btn-find-quiz');
 btnBackToAllQuiz.addEventListener('click', () =>{
     hide(domShowMyQuiz);
     show(domShowQuiz);
+    displayQuiz();
 });
 
 btnShowMyQuiz.addEventListener("click", displayMyQuiz);
@@ -137,16 +166,28 @@ const clickAnswer = (choice) => {
         progressBar(currentQuestionIndex + "/" + quizDatas.length, currentQuestionIndex / quizDatas.length)
         showQuestion(quizDatas[currentQuestionIndex]);
         currentQuestionIndex += 1;
-        
     }else{
         let indexQuestion = document.querySelector('.index-question');
+        let socre = totalScore/quizDatas.length
         indexQuestion.textContent = "";
         indexQuestion.style.width =  "0%";
         hide(containQuestion);
         show(domScore);
-        showScore(totalScore/quizDatas.length);
+        saveScore(socre);
+        showScore(socre);
     }
     
+}
+
+const saveScore = (score) => {
+    let scoreData = {
+        scores: score,
+        userId : getDataFromLocalStorage("userId"),
+        quizId: getDataFromLocalStorage("quizId")
+    }
+    axios.post('/scores/addScore/', scoreData)
+    localStorage.removeItem('quizId')
+
 }
 
 const backToShowQuiz = () => {
@@ -179,7 +220,6 @@ const showScore = (totalScore) => {
              "subject": "scores",
               "content": "Your scores is:" + totalScores + "http://192.168.173.29:80/views/play_quiz_view/play_quiz_view.html"
             }
-            console.log(response.data[0].email);
             axios.post('/email/Email', email)
         
     })
@@ -209,6 +249,7 @@ const playQuiz = (e) => {
         axios.get("/questions/getQuestionOfQuiz/" + quizId)
         .then((response) => {
             if (response.data.length > 0){
+                saveDataToLocalStorage("quizId", quizId);
                 show(containQuestion)
                 hide(domShowMyQuiz)
                 quizDatas  = response.data;
@@ -353,13 +394,10 @@ const deleteQuiz = (quizId) => {
     })
 }
 
-
-
 const editQuiz = () => {
     let titleQuestion = document.querySelector("#title-question").value;
     let idToEdite = document.querySelector(".btn-edit-quiz").id;
     let dataToEdit = {title: titleQuestion}
-    console.log(idToEdite)
     axios.put("/quizzes/update/"+ idToEdite, dataToEdit)
     .then(() => {
         hide(showEditQuiz);
@@ -385,7 +423,7 @@ hide(domScore);
 hide(domShowMyQuiz);
 hide(showEditQuiz)
 // Add buttons for click
-quiz.addEventListener('click', playQuiz);
+domShowQuiz.addEventListener('click', playQuiz);
 goodBadAnswer.addEventListener('click', showGoodBadAnswers);
 btnCancel.addEventListener('click', backToShowQuiz);
 backFromShowcorrectAnswer.addEventListener('click', hideGoodBadAnswers);
