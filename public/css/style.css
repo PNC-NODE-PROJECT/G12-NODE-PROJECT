@@ -350,6 +350,7 @@ body {
      width: 7%;
      margin-right: 10px;
      background: #2196F3;
+     cursor: pointer;
      border-radius: 5px;
      margin-top: -1rem;
    
@@ -359,6 +360,7 @@ body {
      width: 7%;
      margin-left: 18px;
      background: red;
+     cursor: pointer;
      border-radius: 5px;
      margin-top: -1rem;
     
