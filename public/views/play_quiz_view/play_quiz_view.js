@@ -61,9 +61,9 @@ const showQuiz = (datas) => {
     let newDomQuiz = document.createElement('div');
     domShowQuiz.appendChild(newDomQuiz);
     newDomQuiz.id = "quiz";
-    newDomQuiz.className = "row grid  gap-2"
     for(let data of datas) {
         let containTitle = document.createElement('div');
+        containTitle.className = "control-one-quiz"
         let title = document.createElement('div');
         containTitle.appendChild(title);
         title.className = "quiz-title";
@@ -105,7 +105,6 @@ const showMyQuiz = (datas) => {
     let divMyquestion = document.createElement('div');
     domShowMyQuiz.appendChild(divMyquestion);
     divMyquestion.id = "myquiz";
-    divMyquestion.className="row grid  gap-2";
     for(let data of datas) {
         let controlMyQuestion = document.createElement('div');
         controlMyQuestion.className = "control-one-quiz"

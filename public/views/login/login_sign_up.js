@@ -88,36 +88,18 @@ function signUp(e) {
         // if (passwordSignup.value === passwordConfirm.value) {
             if (emailSignup.value.match(validRegex)) {
                 if (passwordSignup.value === passwordConfirm.value) {
-                    // axios.post(URL + "/users/addUser", users)
-                    // .then(result => {
-                    //     emailSignup.value = "";
-                    //     passwordSignup.value = "";
-                    //     userName.value = "";
-                    //     passwordConfirm.value = ""
-                    //     // Swal.fire(
-                    //     //     'Good job!',
-                    //     //     'Sign up success!',
-                    //     //     'success'
-                    //     //     )
-                    //         showUser()
-                    //     })
-                    //     .catch(error =>{
-                    //         console.log(error)
-                    // })
-                    axios.get(URL + "/users/")
-                    .then(result => {
-                        let userId = result.data.slice(-1)[0]._id;
-                        saveDataToLocalStorage("userId", userId);
-                    })
-                    let dataOfUsers = { email: emailSignup.value, password: passwordSignup.value };
+                    let dataOfUsers = { email: emailSignup.value};
                     axios.post(URL + "/users/signup", dataOfUsers)
                     .then((response) => {
                         console.log(response.data);
-                        if (response.data==false) {
-                           
-
-                                axios.post(URL + "/users/addUser", users)
-            
+                        if (response.data) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Can not sign up',
+                                text: 'This email login already !',
+                            })
+                        } else {
+                            axios.post(URL + "/users/addUser", users)
                                 .then((result => {
                                     emailSignup.value = "";
                                     passwordSignup.value = "";
@@ -128,25 +110,19 @@ function signUp(e) {
                                         'Sign up success!',
                                         'success'
                                     )
-                                    showLogin()
                                 }))
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Can not create',
-                                text: 'This account already created!',
-                                
-                            })
-                            
+                                axios.get(URL + "/users/")
+                                .then(result => {
+                                    let userId = result.data.slice(-1)[0]._id;
+                                    saveDataToLocalStorage("userId", userId);
+                                    showUser()
+                                })
                         }
                     });
-
-                    
                 }
             }
         // }
     } else {
-
         if (userName.value == "") {
             valiUser.textContent = "Please complete your username!";
         }
@@ -229,4 +205,4 @@ goToSignUp.addEventListener("click", showSignUp);
 goToSignIn.addEventListener('click', showLogin);
 sign_up.addEventListener("click", signUp);
 login.addEventListener("click", signIn);
-btnLogOut.addEventListener("click", userLogOut)
+btnLogOut.addEventListener("click", userLogOut);

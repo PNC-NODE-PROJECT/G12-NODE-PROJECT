@@ -22,6 +22,7 @@ const showHistoryScores = (datas) =>{
 
     for (let data of datas) {
         let getUserId = getDataFromLocalStorage("userId");
+        console.log(data)
         let userId = data.userId._id;
         if(getUserId == userId){
             let tr = document.createElement('tr');

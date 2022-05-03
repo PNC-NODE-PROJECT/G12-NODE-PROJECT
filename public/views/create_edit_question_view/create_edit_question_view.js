@@ -280,7 +280,11 @@ function createQuestion(e) {
 
 // edit qusetions
 function editQuestionElement(e){
-   
+    document.getElementById("validationTitle").textContent="";
+    document.getElementById("validationChoiceA").textContent="";
+    document.getElementById("validationChoiceB").textContent="";
+    document.getElementById("validationChoiceC").textContent="";
+    document.getElementById("validationChoiceD").textContent="";
     e.preventDefault();
     idToUdate=e.target.parentNode.id;
     document.querySelector('.displayQuestion').style.display = 'none';
@@ -288,6 +292,7 @@ function editQuestionElement(e){
         let questions = respone.data;
         btnCreate.textContent="Edit"
         btn=false
+  
         for (let data of questions) {
             // enter value to input on the form
             if (data._id == e.target.parentNode.id) {
