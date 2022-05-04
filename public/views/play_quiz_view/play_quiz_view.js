@@ -217,7 +217,7 @@ const showScore = (totalScore) => {
             "from": "raths8546@gmail.com",
             "to": response.data[0].email,
              "subject": "scores",
-              "content": "Your scores is:" + totalScores + "http://192.168.173.29:80/views/play_quiz_view/play_quiz_view.html"
+              "content": "Your scores is:" + totalScores +"Thank you!"
             }
             axios.post('/email/Email', email)
         
@@ -336,14 +336,16 @@ const showGoodBadAnswers = () => {
 
 
 function getPDF() {
+
     var doc = new jsPDF();
     doc.text(80, 20, 'Thank you!')
+  
  
     var elementHandler = {
     '#show-score': function (element, renderer) {
         return true;
     }
-   
+    
     };
     var source = window.document.getElementById("show-score");   ;
 
@@ -354,7 +356,7 @@ function getPDF() {
         {
         'width': 111,'elementHandlers': elementHandler
         });
-    doc.text(45, 125, 'This is client-side Javascript, pumping out a PDF.');
+    doc.text(45, 125, 'Try you best you will get the hight score');
 
     
     doc.save('Test.pdf');

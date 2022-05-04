@@ -4,10 +4,7 @@ const router = express.Router()
 
 // import Task model
 const quizModel = require("../models/quiz_models");
-// const quizModel = Data.quiz;
 
-// Define static route
-// router.use(express.static("public"));
 
 // TODO: Define dynamic routes
 // Get quiz data from DB
@@ -61,6 +58,8 @@ router.get('/getUserOfQuiz/:id', (req, res)=>{
   
     });
 })
+
+
 router.put("/update/:id", (req, res) => {
     let data = req.body
     quizModel.updateOne({_id: req.params.id},data)
