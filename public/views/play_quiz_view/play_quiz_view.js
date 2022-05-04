@@ -121,10 +121,10 @@ const showMyQuiz = (datas) => {
         let btnDelete = document.createElement('button');
         let btnEdit = document.createElement('button');
 
-        btnDelete.className = "delete-quiz";
+        btnDelete.className = "btn delete-quiz";
         btnDelete.textContent = 'Delete';
     
-        btnEdit.className = "edit-quiz";
+        btnEdit.className = "btn edit-quiz";
         btnEdit.textContent = 'Edit';
         
         controlBtn.appendChild(btnDelete);
