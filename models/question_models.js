@@ -38,6 +38,4 @@ const questionsSchema = new mongoose.Schema({
 
 const question = mongoose.model('questions', questionsSchema);
 
-
-
 module.exports = question;

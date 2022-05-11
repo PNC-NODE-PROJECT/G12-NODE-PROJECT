@@ -14,19 +14,17 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <a href="../../index.html">
-                <img src="../../images/logo2.png" />
-            </a>
-            <h3>Quiz App</h3>
-        </ul>
-        <ul>
-            <form>
-                <input class="form-control search me-2"  placeholder="Search" >
+    <nav id="navbar-menu" class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="d-flex">
+                <a href="../../index.html"><img src="../../images/logo2.png" /></a> 
+                <h2 class="logo-title">Quiz App</h2>
+             </div>
+            <form class="d-flex">
+                <input class="form-control search me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="border-0 bg-sm-none user-name">67890</button>
             </form>
-            <li class="active user-name">Khy</li>
-        </ul>
+        </div>
     </nav>
     <div class="container contain-quizzes">
         <div id="dom-show-quiz" >
@@ -44,7 +42,7 @@
             </div>
         </div>
         <div class="contain-question">
-            <div class="title-question text-center">How many bootstrap does it have now?</div>
+            <div class="title-question b-radius text-center">How many bootstrap does it have now?</div>
             <div class="answers mb-5 ">
                 <button id="answer-A" onclick="clickAnswer('A')" class="grid-item">My Answer A</button>
                 <button id="answer-B" onclick="clickAnswer('B')" class="grid-item" >My Answer B</button>

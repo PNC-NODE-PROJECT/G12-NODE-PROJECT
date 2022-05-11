@@ -39,7 +39,6 @@ router.delete("/deleteQuiz/:id", (req, res)=>{
         res.send(result);
     })
     .catch((error)=>{
-        console.log(error);
         res.send(error);
     });
   })
@@ -49,8 +48,6 @@ router.delete("/deleteQuiz/:id", (req, res)=>{
 router.get('/getUserOfQuiz/:id', (req, res)=>{
     quizModel.find({userID :req.params.id})
     .then((result)=> {
-        console.log(req.params.id);
-        console.log(result);
         res.send(result);
     })
     .catch((error)=>{
@@ -67,7 +64,6 @@ router.put("/update/:id", (req, res) => {
         res.send(result);
     })
     .catch((error)=>{
-        console.log(error);
         res.send(error);
     });
   });

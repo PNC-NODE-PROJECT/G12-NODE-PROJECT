@@ -3,10 +3,7 @@ const router = express.Router()
 
 // import Task model
 const scoreModel = require("../models/score_models");
-// const scoreModel = Data.score;
 
-
-// TODO: Define dynamic routes
 // Get score data from DB
 router.get('/', (req, res)=>{
     scoreModel.find()
@@ -19,9 +16,9 @@ router.get('/', (req, res)=>{
       res.send(error);
 
   });
-})
+});
 
-// add to Score
+// add to score to DB
 router.post('/addScore', (req, res)=>{
     let element =req.body;
     scoreModel.create(element)
@@ -31,6 +28,30 @@ router.post('/addScore', (req, res)=>{
     .catch((error)=>{
         console.log(error);
     });
+})
+
+
+// delete score when user deleted quizzes
+router.delete("/deleteMany/:id", (req, res)=>{
+    scoreModel.deleteMany({quizId: req.params.id})
+    .then((result)=>{
+        res.send(result);
+    })
+    .catch((error)=>{
+        
+        res.send(error);
+    });
   })
 
-module.exports = router
+
+  router.get("/get/", (req, res)=>{
+      scoreModel.find({quizId: "62748c1bce4fd1b799835c2e"})
+      .then((result)=>{
+          res.send(result);
+      })
+      .catch((error)=>{
+          
+          res.send(error);
+      });
+    })
+  module.exports = router

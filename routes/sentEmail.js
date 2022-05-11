@@ -1,7 +1,7 @@
 const routes = require('express').Router();
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-
+require("dotenv").config();
 
 
 routes.get('/test', (req, res) => {
@@ -17,19 +17,19 @@ routes.post('/Email', (req, res) =>{
         requiresAuth: true,
         domains: ["gmail.com", "googlemail.com"],
         auth: {
-            user: 'raths8546@gmail.com',
-            pass: '0976736761'
+            user: 'quizappg12.studentpnc@gmail.com',
+            pass: process.env.PASSWORD_ADMIN
         }
 });  
 
   var mailOptions = {
-    from: 'raths8546@gmail.com',
+    from: 'quizappg12.studentpnc@gmail.com',
     to: req.body.to,
       subject: req.body.subject,
       text: req.body.content
   };
 
-  smtpTransport.sendMail(mailOptions, (error, info) => {
+smtpTransport.sendMail(mailOptions, (error, info) => {
     if (error) {
         return console.log('Error while sending mail: ' + error);
     } else {

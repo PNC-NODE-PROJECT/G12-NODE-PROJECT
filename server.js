@@ -1,4 +1,3 @@
-// To Do
 // create server
 
 require('dotenv').config()
@@ -13,8 +12,6 @@ const cors = require('cors');
 app.use(cors({ origin: '*' }));
 app.use(express.static("public"));
 app.use(express.static("views"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
 
 app.listen(PORT, () => {
     console.log("http://localhost:80");

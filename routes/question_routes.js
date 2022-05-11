@@ -28,18 +28,30 @@ router.post('/create', (req, res)=>{
         res.send(result);
     })
     .catch((error)=>{
-        console.log(error);
+        
     });
   })
 
-// delete
+// delete one question
 router.delete("/delete/:id", (req, res)=>{
     questionModel.deleteOne({_id: req.params.id})
     .then((result)=>{
         res.send(result);
     })
     .catch((error)=>{
-        console.log(error);
+        
+        res.send(error);
+    });
+  })
+
+// delete one question
+router.delete("/deleteMany/:id", (req, res)=>{
+    questionModel.deleteMany({quizzId: req.params.id})
+    .then((result)=>{
+        res.send(result);
+    })
+    .catch((error)=>{
+        
         res.send(error);
     });
   })
@@ -52,7 +64,6 @@ router.put("/updateQuestionData/:id", (req, res) => {
         res.send(result);
     })
     .catch((error)=>{
-        console.log(error);
         res.send(error);
     });
   });
@@ -61,7 +72,6 @@ router.put("/updateQuestionData/:id", (req, res) => {
 router.get('/getQuestionOfQuiz/:id', (req, res)=>{
     questionModel.find({quizzId: req.params.id})
     .then((result)=> {
-        console.log( req.params.id);
         res.send(result);
     })
     .catch((error)=>{

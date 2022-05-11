@@ -91,7 +91,6 @@ function signUp(e) {
                     let dataOfUsers = { email: emailSignup.value};
                     axios.post(URL + "/users/signup", dataOfUsers)
                     .then((response) => {
-                        console.log(response.data);
                         if (response.data) {
                             Swal.fire({
                                 icon: 'error',
@@ -170,7 +169,6 @@ function signIn(e) {
                       )
                     showUser()
                 } else {
-                    console.log("Please !! Checked your password and try again !!")
                     Swal.fire({
                         icon: 'error',
                         title: 'Login is not success!',

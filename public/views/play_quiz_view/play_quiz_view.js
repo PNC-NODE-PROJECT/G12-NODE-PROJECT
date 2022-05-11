@@ -121,10 +121,10 @@ const showMyQuiz = (datas) => {
         let btnDelete = document.createElement('button');
         let btnEdit = document.createElement('button');
 
-        btnDelete.className = "btn delete-quiz";
+        btnDelete.className = "delete-quiz";
         btnDelete.textContent = 'Delete';
     
-        btnEdit.className = "btn edit-quiz";
+        btnEdit.className = "edit-quiz";
         btnEdit.textContent = 'Edit';
         
         controlBtn.appendChild(btnDelete);
@@ -339,8 +339,6 @@ function getPDF() {
 
     var doc = new jsPDF();
     doc.text(80, 20, 'Thank you!')
-  
- 
     var elementHandler = {
     '#show-score': function (element, renderer) {
         return true;
@@ -357,11 +355,7 @@ function getPDF() {
         'width': 111,'elementHandlers': elementHandler
         });
     doc.text(45, 125, 'Try you best you will get the hight score');
-
-    
     doc.save('Test.pdf');
-
-    
 }
 
 
@@ -370,7 +364,6 @@ const deleteAndEditQuiz = (e) => {
     e.preventDefault() 
     let checkClass = e.target.className
     let titleQuiz =  e.target.parentNode.parentNode.firstChild.textContent;
-    console.log(titleQuiz)
     let quizId = e.target.parentNode.parentNode.firstChild.id;
     if (checkClass == "delete-quiz"){
         deleteQuiz(quizId) ;
@@ -384,11 +377,13 @@ const deleteAndEditQuiz = (e) => {
     }
 }
 
-
 const deleteQuiz = (quizId) => {
     axios.delete("/quizzes/deleteQuiz/"+quizId)
     .then(() => {
-        displayMyQuiz()
+        axios.delete('/scores/deleteMany/'+quizId);
+        axios.delete("/questions/deleteMany/"+ quizId).then(() => {
+            displayMyQuiz();
+        })
     })
     .catch(err => {
         console.log(err)

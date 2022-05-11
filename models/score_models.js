@@ -1,8 +1,6 @@
-// ToDo
 const mongoose = require("./database");
  
-  
-  //real data--------------------
+//real data--------------------
 const scoresSchema = new mongoose.Schema({
     scores: {
         type: Number,
@@ -17,10 +15,7 @@ const scoresSchema = new mongoose.Schema({
     }
 });
 
-
-  // Create the Model for the Tasks collection from Schema
-  
-
+// Create the Model for the Tasks collection from Schema
   const score =  mongoose.model("scores",scoresSchema);
   
  

@@ -52,7 +52,6 @@ router.delete("/deleteuser/:id", (req, res) => {
             res.send(result);
         })
         .catch((error) => {
-            console.log(error);
             res.send(error);
         });
 });
@@ -76,7 +75,6 @@ router.post('/signup', (req, res) => {
     userModel.find(userData)
         // .populate("role")
         .then((result) => {
-            console.log(result);
             if (result.length > 0) {
                 isValid = true;
                 res.send(isValid);
