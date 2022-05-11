@@ -5,7 +5,6 @@ const goToSignUp = document.querySelector('.go-sign-up');
 const goToSignIn = document.querySelector('.go-sign-in');
 const sign_up = document.querySelector('#sign-up');
 const containHome = document.querySelector('.contain-home');
-const URL = "http://localhost:80"
     // Fucntion show elemet
 const show = (element) => {
     element.style.display = 'block';
@@ -89,7 +88,7 @@ function signUp(e) {
             if (emailSignup.value.match(validRegex)) {
                 if (passwordSignup.value === passwordConfirm.value) {
                     let dataOfUsers = { email: emailSignup.value};
-                    axios.post(URL + "/users/signup", dataOfUsers)
+                    axios.post("/users/signup", dataOfUsers)
                     .then((response) => {
                         if (response.data) {
                             Swal.fire({
@@ -98,7 +97,7 @@ function signUp(e) {
                                 text: 'This email login already !',
                             })
                         } else {
-                            axios.post(URL + "/users/addUser", users)
+                            axios.post("/users/addUser", users)
                                 .then((result => {
                                     emailSignup.value = "";
                                     passwordSignup.value = "";
@@ -110,7 +109,7 @@ function signUp(e) {
                                         'success'
                                     )
                                 }))
-                                axios.get(URL + "/users/")
+                                axios.get("/users/")
                                 .then(result => {
                                     let userId = result.data.slice(-1)[0]._id;
                                     saveDataToLocalStorage("userId", userId);
@@ -157,7 +156,7 @@ function signIn(e) {
     valiUserLogin.textContent =""
     
     if (emailSignin != "" && passwordSignin != ""){
-        axios.post(URL + "/users/login", dataOfUsers)
+        axios.post("/users/login", dataOfUsers)
         .then((response) => {
             let userId = response.data;
             if (userId) {

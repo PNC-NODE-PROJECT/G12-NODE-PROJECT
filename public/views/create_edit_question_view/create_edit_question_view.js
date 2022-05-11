@@ -1,4 +1,4 @@
-const URL = "http://localhost:80"
+
 let title = document.querySelector("#title");
 let anA = document.querySelector("#choiceA");
 let anB = document.querySelector("#choiceB");
@@ -18,7 +18,7 @@ const showTitleQuiz = document.querySelector(".show-title-quiz");
 const btnCreateQuiz = document.querySelector("#btn-create-quiz");
 const screenToDisplay = document.querySelector(".displayQuestion");
 const domTitleQUestion = document.querySelector('#titleQUestion');
-// import { hide, show } from "../js/functions.js";
+
 import {
     hide, 
     show, 
@@ -193,7 +193,7 @@ function createQuestion(e) {
         let allChoicesRedio=correctA.checked!=false || correctB.checked!=false || correctC.checked!=false || correctD.checked!=false ;
         let allInputOnfrom=title.value!="" && anA.value!="" && anB.value!="" && anC.value!="" && anD.value!="";
         if( allInputOnfrom && allChoicesRedio){ 
-            axios.post(URL + "/questions/create", body).then((respone) => {
+            axios.post("/questions/create", body).then((respone) => {
                 show(screenToDisplay)
                 title.value=""
                 anA.value=""
@@ -257,7 +257,7 @@ function createQuestion(e) {
             correctD.checked=false;
         }
         
-        axios.put(URL+"/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
+        axios.put("/questions/updateQuestionData/"+idToUdate, body).then((item)=>{
             show(screenToDisplay)
             displayQuestion(quizId);
             correctA.checked=false;
@@ -288,7 +288,7 @@ function editQuestionElement(e){
     e.preventDefault();
     idToUdate=e.target.parentNode.id;
     document.querySelector('.displayQuestion').style.display = 'none';
-    axios.get(URL + "/questions").then((respone) => {
+    axios.get("/questions").then((respone) => {
         let questions = respone.data;
         btnCreate.textContent="Edit"
         btn=false
@@ -325,7 +325,7 @@ let btn=true;
 function deleteQuestion(e) {
     let id = e.target.parentElement.id;
     let quizId = e.target.id
-    axios.delete(URL + "/questions/delete/" + id)
+    axios.delete("/questions/delete/" + id)
     .then((respone) => {
         Swal.fire(
             'Deleted!',
