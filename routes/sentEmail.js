@@ -17,13 +17,13 @@ routes.post('/Email', (req, res) =>{
         requiresAuth: true,
         domains: ["gmail.com", "googlemail.com"],
         auth: {
-            user: 'quizappg12.studentpnc@gmail.com',
-            pass: process.env.PASSWORD_ADMIN
+            user: 'raths8546@gmail.com',
+            pass: process.env.PASSWORD_ADMIN 
         }
 });  
 
   var mailOptions = {
-    from: 'quizappg12.studentpnc@gmail.com',
+    from: 'raths8546@gmail.com',
     to: req.body.to,
       subject: req.body.subject,
       text: req.body.content
