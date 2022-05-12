@@ -14,7 +14,7 @@ app.use(express.static("public"));
 app.use(express.static("views"));
 
 app.listen(PORT, () => {
-    console.log("http://localhost:80");
+    console.log("http://localhost:" + PORT);
 })
 
 // call file from folder routes
